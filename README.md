@@ -48,7 +48,11 @@ mistakes, or that I have uncovered all possible exceptions to the
 rules that I have deduced from the sample files.  **use it at your own
 risk! You have been warned!** 
 
-(This was ported over from my original [pubOTDR](https://github.com/sid5432/pubOTDR)
-written in Perl)
+This was ported over from my original [pubOTDR](https://github.com/sid5432/pubOTDR)
+written in Perl.  To parse an OTDR SOR file, run the program as
+
+% read.py myfile.sor
+
+where "mfile.sor" is the name (path) to your SOR file.  A OTDR trace file "myfile-trace.dat" and a JSON file "myfile-dump.json" will be produced.
 
 (*Last Revised 2017-06-05*)

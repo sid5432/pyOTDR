@@ -34,24 +34,24 @@ reflectometer](http://https://en.wikipedia.org/wiki/Optical_time-domain_reflecto
 Using a binary-file editor/viewer and comparing the outputs from
 some free OTDR SOR file readers, I was able to piece together most of
 the encoding in the SOR data format and written a simple program (in
-Perl) that parses the SOR file and dumps the trace data into a file.
+Python) that parses the SOR file and dumps the trace data into a file.
 (For a more detailed description, other than reading the source code,
 see [my blog
-post](http://morethanfootnotes.blogspot.com/2015/07/the-otdr-optical-time-domain.html?view=sidebar).
+post](http://morethanfootnotes.blogspot.com/2015/07/the-otdr-optical-time-domain.html?view=sidebar)).
 
 
 Presented here for your entertainment are my findings, in the hope
-that it will be useful to other people.  But understand that the
+that it will be useful to other people.  But be aware that the
 information provided here is based on guess work from looking at a
 limited number of sample files.  I can not guarantee that there are no
 mistakes, or that I have uncovered all possible exceptions to the
 rules that I have deduced from the sample files.  **use it at your own
 risk! You have been warned!** 
 
-This was ported over from my original [pubOTDR](https://github.com/sid5432/pubOTDR)
+The program was ported over from my original [pubOTDR](https://github.com/sid5432/pubOTDR)
 written in Perl.  To parse an OTDR SOR file, run the program as
 
-% read.py myfile.sor
+<code>% read.py myfile.sor</code>
 
 where "mfile.sor" is the name (path) to your SOR file.  A OTDR trace file "myfile-trace.dat" and a JSON file "myfile-dump.json" will be produced.
 

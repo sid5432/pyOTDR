@@ -1,0 +1,133 @@
+{
+        "Cksum": {
+                "checksum": 59892,
+                "checksum_ours": 62998,
+                "match": false
+        },
+        "DataPts": {
+                "num data points": 15736
+        },
+        "FxdParams": {
+                "BC": "-80.00",
+                "EOT thr": "3.000",
+                "averaging time": "15",
+                "date/time": "Tue Nov 22 03:49:23 2011 (1321951763 sec)",
+                "index": "1.475000",
+                "loss thr": "0.200",
+                "num averages": 16380,
+                "num data points": 15736,
+                "pulse width": "1000",
+                "range": 79.958173424989,
+                "refl thr": "-40.000",
+                "resolution": 5.081226069203674,
+                "sample spacing": 0.02499999,
+                "trace type": "ST[standard trace]",
+                "unit": "km (kilometers)",
+                "unknown 1": "91 FE FF FF 00 00 00 00 01 00 ",
+                "unknown 2": "00 00 00 00 00 00 00 00 24 09 64 00 00 00 ",
+                "unknown 3": "00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 ",
+                "wavelength": "1310.0"
+        },
+        "GenParams": {
+                "(unknown 2)": "VALUE 0",
+                "build condition": "BC (as-built)",
+                "cable ID": " ",
+                "cable code/fiber type": " ",
+                "comments": " ",
+                "fiber ID": " ",
+                "fiber type": "G.652 (standard SMF)",
+                "language": "EN",
+                "location A": " ",
+                "location B": " ",
+                "operator": " ",
+                "wavelength": "1310 nm"
+        },
+        "KeyEvents": {
+                "num events": 3
+        },
+        "SupParams": {
+                "OTDR": "OPXOTDR  ",
+                "OTDR S/N": "000",
+                "module": "SM/1310/1550",
+                "module S/N": "09811",
+                "other": "v1.1[670]",
+                "software": "v9.09  VA=110105",
+                "supplier": "OptixS"
+        },
+        "_datapts_params": {
+                "offset": "STV",
+                "xscaling": 1
+        },
+        "blocks": {
+                "Cksum": {
+                        "name": "Cksum",
+                        "order": 8,
+                        "pos": 32125,
+                        "size": 8,
+                        "version": 2.0
+                },
+                "DataPts": {
+                        "name": "DataPts",
+                        "order": 4,
+                        "pos": 520,
+                        "size": 31492,
+                        "version": 2.0
+                },
+                "EmbData": {
+                        "name": "EmbData",
+                        "order": 7,
+                        "pos": 32115,
+                        "size": 10,
+                        "version": 2.0
+                },
+                "FxdParams": {
+                        "name": "FxdParams",
+                        "order": 2,
+                        "pos": 265,
+                        "size": 92,
+                        "version": 2.0
+                },
+                "GenParams": {
+                        "name": "GenParams",
+                        "order": 0,
+                        "pos": 148,
+                        "size": 40,
+                        "version": 2.0
+                },
+                "IITEvents": {
+                        "name": "IITEvents",
+                        "order": 5,
+                        "pos": 32012,
+                        "size": 12,
+                        "version": 2.0100000000000002
+                },
+                "IITParams": {
+                        "name": "IITParams",
+                        "order": 6,
+                        "pos": 32024,
+                        "size": 91,
+                        "version": 2.1
+                },
+                "KeyEvents": {
+                        "name": "KeyEvents",
+                        "order": 3,
+                        "pos": 357,
+                        "size": 163,
+                        "version": 2.0
+                },
+                "SupParams": {
+                        "name": "SupParams",
+                        "order": 1,
+                        "pos": 188,
+                        "size": 77,
+                        "version": 2.0
+                }
+        },
+        "filename": "sample1310_lowDR.sor",
+        "format": 2,
+        "mapblock": {
+                "nblocks": 9,
+                "nbytes": 148
+        },
+        "version": 2.0
+}

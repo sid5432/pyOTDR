@@ -1,0 +1,129 @@
+{
+        "Cksum": {
+                "checksum": 38827,
+                "checksum_ours": 38827,
+                "match": true
+        },
+        "DataPts": {
+                "num data points": 11776
+        },
+        "FxdParams": {
+                "BC": "-81.50",
+                "EOT thr": "5.000",
+                "date/time": "Thu Feb 05 03:46:14 1998 (886668374 sec)",
+                "index": "1.471100",
+                "loss thr": "0.000",
+                "num averages": 30,
+                "num data points": 11776,
+                "pulse width": "1000",
+                "range": 59.99514943351243,
+                "refl thr": "-0.000",
+                "resolution": 5.094696792927346,
+                "sample spacing": 0.02499999,
+                "unit": "mt (meters)",
+                "unknown 1": "00 00 00 00 01 00 ",
+                "unknown 2": "00 00 00 00 5A CB E8 03 00 00 ",
+                "wavelength": "1310.0"
+        },
+        "GenParams": {
+                "(unknown 2)": "VALUE 0",
+                "build condition": "CC (as-current)",
+                "cable ID": "K1 AB",
+                "cable code/fiber type": " ",
+                "comments": "HP Emulation SW",
+                "fiber ID": " ",
+                "language": "EN",
+                "location A": " ",
+                "location B": " ",
+                "operator": "HP ",
+                "wavelength": "1310 nm"
+        },
+        "KeyEvents": {
+                "num events": 5
+        },
+        "SupParams": {
+                "OTDR": "E6000A ",
+                "OTDR S/N": "3617G00108 ",
+                "module": "E6008A ",
+                "module S/N": "DE37300051 ",
+                "other": "A3717-00051\n28.01.98 ",
+                "software": "3.0",
+                "supplier": "Hewlett Packard"
+        },
+        "_datapts_params": {
+                "offset": "STV",
+                "xscaling": 1
+        },
+        "blocks": {
+                "Cksum": {
+                        "name": "Cksum",
+                        "order": 8,
+                        "pos": 25706,
+                        "size": 2,
+                        "version": 1.0
+                },
+                "DataPts": {
+                        "name": "DataPts",
+                        "order": 3,
+                        "pos": 328,
+                        "size": 23564,
+                        "version": 1.01
+                },
+                "FxdParams": {
+                        "name": "FxdParams",
+                        "order": 2,
+                        "pos": 274,
+                        "size": 54,
+                        "version": 1.01
+                },
+                "GenParams": {
+                        "name": "GenParams",
+                        "order": 0,
+                        "pos": 148,
+                        "size": 44,
+                        "version": 1.01
+                },
+                "HPEvent": {
+                        "name": "HPEvent",
+                        "order": 5,
+                        "pos": 24036,
+                        "size": 122,
+                        "version": 2.21
+                },
+                "HPSpecialInfo": {
+                        "name": "HPSpecialInfo",
+                        "order": 7,
+                        "pos": 24200,
+                        "size": 1506,
+                        "version": 2.22
+                },
+                "KeyEvents": {
+                        "name": "KeyEvents",
+                        "order": 4,
+                        "pos": 23892,
+                        "size": 144,
+                        "version": 1.01
+                },
+                "SupParams": {
+                        "name": "SupParams",
+                        "order": 1,
+                        "pos": 192,
+                        "size": 82,
+                        "version": 1.01
+                },
+                "Threshold": {
+                        "name": "Threshold",
+                        "order": 6,
+                        "pos": 24158,
+                        "size": 42,
+                        "version": 1.0
+                }
+        },
+        "filename": "demo_ab.sor",
+        "format": 1,
+        "mapblock": {
+                "nblocks": 9,
+                "nbytes": 148
+        },
+        "version": 1.0
+}

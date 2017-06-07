@@ -6,7 +6,7 @@ import parts
 
 sep = "    :"
 
-def process(fh, results, debug=False, logfile=sys.stderr, dumptrace=True):
+def process(fh, results, tracedata, debug=False, logfile=sys.stderr):
     """
     fh: file handle;
     results: dict for results;
@@ -18,10 +18,6 @@ def process(fh, results, debug=False, logfile=sys.stderr, dumptrace=True):
     pname = "DataPts.process():"
     ref = None
     status = 'nok'
-    
-    # construct data file name
-    fn_strip, ext = os.path.splitext( os.path.basename(results['filename']) )
-    datafile = fn_strip+"-trace.dat"
     
     try:
         ref = results['blocks'][bname]
@@ -47,7 +43,7 @@ def process(fh, results, debug=False, logfile=sys.stderr, dumptrace=True):
     # method used by STV: minimum reading shifted to zero
     # method used by AFL/Noyes Trace.Net: maximum reading shifted to zero (approx)
     
-    status = _process_data(fh, results, datafile, debug=debug, logfile=logfile, dumptrace=dumptrace)
+    status = _process_data(fh, results, tracedata, debug=debug, logfile=logfile)
     
     # read the rest of the block (just in case)
     endpos = results['blocks'][bname]['pos'] + results['blocks'][bname]['size']
@@ -56,7 +52,7 @@ def process(fh, results, debug=False, logfile=sys.stderr, dumptrace=True):
     return status
 
 # ================================================================
-def _process_data(fh, results, datafile, debug=False, logfile=sys.stderr, dumptrace=True):
+def _process_data(fh, results, tracedata, debug=False, logfile=sys.stderr, dumptrace=True):
     """ process version 1 format """
     bname = "DataPts"
     xref  = results[bname]
@@ -116,23 +112,21 @@ def _process_data(fh, results, datafile, debug=False, logfile=sys.stderr, dumptr
     
     # .........................................
     # save to file
-    if dumptrace:
-        offset = results['_datapts_params']['offset']
-        xscaling = results['_datapts_params']['xscaling']
-        
-        # convert/scale to dB
-        if offset == 'STV':
-            nlist = [(ymax - x )*fs for x in dlist]
-        elif offset == 'AFL':
-            nlist = [(ymin - x )*fs for x in dlist]
-        else: # invert
-            nlist = [-x*fs for x in dlist]
-        
-        with open(datafile,"w") as output:
-            for i in xrange(N):
-                # more work but (maybe) less rounding issues
-                x = dx*i*xscaling / 1000.0 # output in kkm
-                print >>output, "%f\t%f" % (x, nlist[i])
+    offset = results['_datapts_params']['offset']
+    xscaling = results['_datapts_params']['xscaling']
+    
+    # convert/scale to dB
+    if offset == 'STV':
+        nlist = [(ymax - x )*fs for x in dlist]
+    elif offset == 'AFL':
+        nlist = [(ymin - x )*fs for x in dlist]
+    else: # invert
+        nlist = [-x*fs for x in dlist]
+    
+    for i in xrange(N):
+        # more work but (maybe) less rounding issues
+        x = dx*i*xscaling / 1000.0 # output in kkm
+        tracedata.append( "%f\t%f" % (x, nlist[i]) )
     
     # .........................................
     status = 'ok'

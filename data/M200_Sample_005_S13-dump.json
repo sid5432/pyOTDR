@@ -1,0 +1,122 @@
+{
+        "Cksum": {
+                "checksum": 45751,
+                "checksum_ours": 45751,
+                "match": true
+        },
+        "DataPts": {
+                "num data points": 16000
+        },
+        "FxdParams": {
+                "BC": "-77.00",
+                "EOT thr": "6.000",
+                "date/time": "Sat Jun 17 06:01:11 2006 (1150538471 sec)",
+                "index": "1.467700",
+                "loss thr": "0.050",
+                "num averages": 6656,
+                "num data points": 16000,
+                "pulse width": "100",
+                "range": 8.17040152619745,
+                "refl thr": "-65.000",
+                "resolution": 0.5106500953873406,
+                "sample spacing": 0.0025,
+                "unit": "mt (meters)",
+                "unknown 1": "00 00 00 00 01 00 ",
+                "unknown 2": "00 00 00 00 FF FF 00 00 00 00 ",
+                "wavelength": "131.0"
+        },
+        "GenParams": {
+                "(unknown 2)": "VALUE 7475",
+                "build condition": "BC (as-built)",
+                "cable ID": "M200_DEMO_D",
+                "cable code/fiber type": " ",
+                "comments": " ",
+                "fiber ID": "005",
+                "language": "EN",
+                "location A": "Conant",
+                "location B": "Morrill",
+                "operator": "SUZY",
+                "wavelength": "1310 nm"
+        },
+        "KeyEvents": {
+                "num events": 5
+        },
+        "SupParams": {
+                "OTDR": "M200",
+                "OTDR S/N": " ",
+                "module": " ",
+                "module S/N": " ",
+                "other": " ",
+                "software": "0.0.14",
+                "supplier": "Noyes"
+        },
+        "_datapts_params": {
+                "offset": "STV",
+                "xscaling": 1
+        },
+        "blocks": {
+                "Cksum": {
+                        "name": "Cksum",
+                        "order": 7,
+                        "pos": 32768,
+                        "size": 2,
+                        "version": 1.0
+                },
+                "DataPts": {
+                        "name": "DataPts",
+                        "order": 3,
+                        "pos": 254,
+                        "size": 32012,
+                        "version": 1.0
+                },
+                "FxdParams": {
+                        "name": "FxdParams",
+                        "order": 2,
+                        "pos": 200,
+                        "size": 54,
+                        "version": 1.1
+                },
+                "GenParams": {
+                        "name": "GenParams",
+                        "order": 0,
+                        "pos": 124,
+                        "size": 50,
+                        "version": 1.1
+                },
+                "KeyEvents": {
+                        "name": "KeyEvents",
+                        "order": 4,
+                        "pos": 32266,
+                        "size": 153,
+                        "version": 1.1
+                },
+                "Noyes2": {
+                        "name": "Noyes2",
+                        "order": 5,
+                        "pos": 32419,
+                        "size": 292,
+                        "version": 2.02
+                },
+                "Noyes3": {
+                        "name": "Noyes3",
+                        "order": 6,
+                        "pos": 32711,
+                        "size": 57,
+                        "version": 2.02
+                },
+                "SupParams": {
+                        "name": "SupParams",
+                        "order": 1,
+                        "pos": 174,
+                        "size": 26,
+                        "version": 1.0
+                }
+        },
+        "filename": "M200_Sample_005_S13.sor",
+        "format": 1,
+        "mapblock": {
+                "nblocks": 8,
+                "nbytes": 124
+        },
+        "version": 1.0
+}

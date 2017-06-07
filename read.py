@@ -1,5 +1,6 @@
 #!/usr/bin/python
 import sys
+import os
 
 import parts
 import mapblock
@@ -19,17 +20,19 @@ def sorparse(filename, debug=False, logfile=sys.stdout, dumptrace=True):
     """
     fh = parts.sorfile(filename)
     if fh == None:
-        return "Error opening file", None
+        return "Error opening file", None, None
     
     results = dict()
     status = 'ok'
     
-    results['filename'] = filename
+    results['filename'] = os.path.basename( filename )
+    
+    tracedata = []
     
     # map block -------------------------------
     status = mapblock.process(fh, results, debug=debug, logfile=logfile)
     if status != 'ok':
-        return status, results
+        return status, results, tracedata
     
     
     # all the other blocks --------------------
@@ -42,7 +45,7 @@ def sorparse(filename, debug=False, logfile=sys.stdout, dumptrace=True):
         start = ref['pos']
         
         if debug:
-            print "MAIN:  %s block: %d bytes, start pos 0x%X (%d)" % (bname, bsize, start, start)
+            print >>logfile, "MAIN:  %s block: %d bytes, start pos 0x%X (%d)" % (bname, bsize, start, start)
         
         if bname == 'GenParams':
             status = genparams.process(fh, results, debug=debug, logfile=logfile)
@@ -51,7 +54,7 @@ def sorparse(filename, debug=False, logfile=sys.stdout, dumptrace=True):
         elif bname == 'FxdParams':
             status = fxdparams.process(fh, results, debug=debug, logfile=logfile)
         elif bname == 'DataPts':
-            status = datapts.process(fh, results, debug=debug, logfile=logfile, dumptrace=dumptrace)
+            status = datapts.process(fh, results, tracedata, debug=debug, logfile=logfile)
         elif bname == 'KeyEvents':
             status = keyevents.process(fh, results, debug=debug, logfile=logfile)
         elif bname == 'Cksum':
@@ -62,7 +65,7 @@ def sorparse(filename, debug=False, logfile=sys.stdout, dumptrace=True):
             pass
         
         if debug:
-            print
+            print >>logfile
             
         # stop immediately if any errors
         if status != 'ok':
@@ -71,7 +74,7 @@ def sorparse(filename, debug=False, logfile=sys.stdout, dumptrace=True):
     # ...................................
     fh.close()
     
-    return status, results
+    return status, results, tracedata
     
 
 # ==============================================
@@ -87,7 +90,7 @@ if __name__ == '__main__':
     logfile = sys.stdout
     # logfile = open(os.devnull,"w")
     
-    status, results = sorparse(filename, debug=True, logfile=logfile, dumptrace=True)
+    status, results, tracedata = sorparse(filename, debug=True, logfile=logfile)
     
     # construct data file name to dump results
     fn_strip, ext = os.path.splitext( os.path.basename(filename) )
@@ -95,4 +98,12 @@ if __name__ == '__main__':
     
     with open(datafile,"w") as output:
         dump.tofile(results, output)
+    
+    # construct data file name
+    fn_strip, ext = os.path.splitext( os.path.basename(filename) )
+    opfile = fn_strip+"-trace.dat"
+    
+    with open(opfile,"w") as output:
+        for xy in tracedata:
+            print >>output, xy
     

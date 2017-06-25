@@ -39,6 +39,46 @@
                 "wavelength": "1310 nm"
         },
         "KeyEvents": {
+                "event 1": {
+                        "comments": "Link Start",
+                        "distance": "0.000",
+                        "refl loss": "-44.478",
+                        "slope": "0.000",
+                        "splice loss": "0.168",
+                        "type": "1F9999LS {auto} reflection"
+                },
+                "event 2": {
+                        "comments": " ",
+                        "distance": "0.091",
+                        "refl loss": "-38.454",
+                        "slope": "0.120",
+                        "splice loss": "0.791",
+                        "type": "1F9999LS {auto} reflection"
+                },
+                "event 3": {
+                        "comments": " ",
+                        "distance": "0.395",
+                        "refl loss": "-51.983",
+                        "slope": "0.362",
+                        "splice loss": "0.045",
+                        "type": "1F9999LS {auto} reflection"
+                },
+                "event 4": {
+                        "comments": " ",
+                        "distance": "0.796",
+                        "refl loss": "-58.134",
+                        "slope": "0.334",
+                        "splice loss": "0.347",
+                        "type": "1F9999LS {auto} reflection"
+                },
+                "event 5": {
+                        "comments": " ",
+                        "distance": "3.787",
+                        "refl loss": "-30.760",
+                        "slope": "0.321",
+                        "splice loss": "0.000",
+                        "type": "1E9999LS {auto} reflection"
+                },
                 "num events": 5
         },
         "SupParams": {

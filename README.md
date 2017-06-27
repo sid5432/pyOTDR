@@ -53,7 +53,9 @@ written in Perl.  To parse an OTDR SOR file, run the program as
 
 <code>% read.py myfile.sor</code>
 
-where "mfile.sor" is the name (path) to your SOR file.  A OTDR trace file "myfile-trace.dat" and a JSON file "myfile-dump.json" will be produced.
+where "mfile.sor" is the name (path) to your SOR file.  A OTDR trace file "myfile-trace.dat" and a JSON file "myfile-dump.json" will be produced.  You can also output the results as an XML file "myfile-dump.xml" with:
+
+<code>% read.py myfile.sor XML</code>
 
 There is also a Clojure version, [cljotdr](https://github.com/sid5432/cljotdr); this will be of interest to people looking for a Java version, since Clojure runs on top of a Java Virtual Machine (JVM).
 

@@ -5,28 +5,37 @@
                 "match": false
         },
         "DataPts": {
-                "num data points": 15736
+                "_datapts_params": {
+                        "offset": "STV",
+                        "xscaling": 1
+                },
+                "max before offset": 63.611,
+                "min before offset": 6.566,
+                "num data points": 15736,
+                "num data points 2": 15736,
+                "scaling factor": 1.0,
+                "unknown": 1
         },
         "FxdParams": {
-                "BC": "-80.00",
-                "EOT thr": "3.000",
-                "averaging time": "15",
+                "BC": "-80.00 dB",
+                "EOT thr": "3.000 dB",
+                "averaging time": "15 sec",
                 "date/time": "Tue Nov 22 03:49:23 2011 (1321951763 sec)",
                 "index": "1.475000",
-                "loss thr": "0.200",
+                "loss thr": "0.200 dB",
                 "num averages": 16380,
                 "num data points": 15736,
-                "pulse width": "1000",
+                "pulse width": "1000 ns",
                 "range": 79.958173424989,
-                "refl thr": "-40.000",
+                "refl thr": "-40.000 dB",
                 "resolution": 5.081226069203674,
-                "sample spacing": 0.02499999,
+                "sample spacing": "0.02499999 usec",
                 "trace type": "ST[standard trace]",
                 "unit": "km (kilometers)",
                 "unknown 1": "91 FE FF FF 00 00 00 00 01 00 ",
                 "unknown 2": "00 00 00 00 00 00 00 00 24 09 64 00 00 00 ",
                 "unknown 3": "00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 ",
-                "wavelength": "1310.0"
+                "wavelength": "1310.0 nm"
         },
         "GenParams": {
                 "(unknown 2)": "VALUE 0",
@@ -43,6 +52,53 @@
                 "wavelength": "1310 nm"
         },
         "KeyEvents": {
+                "Summary": {
+                        "ORL": 32.392,
+                        "ORL finish": 17.065447,
+                        "ORL start": -0.007459,
+                        "loss end": 17.065447,
+                        "loss start": -0.007459,
+                        "total loss": 6.39
+                },
+                "event 1": {
+                        "comments": "",
+                        "distance": "0.000",
+                        "end of curr": "0.308",
+                        "end of prev": "0.000",
+                        "peak": "0.038",
+                        "refl loss": "-44.177",
+                        "slope": "0.000",
+                        "splice loss": "0.000",
+                        "start of curr": "0.000",
+                        "start of next": "2.020",
+                        "type": "0F9999LS {auto} loss/drop/gain"
+                },
+                "event 2": {
+                        "comments": "",
+                        "distance": "2.020",
+                        "end of curr": "2.655",
+                        "end of prev": "0.308",
+                        "peak": "2.040",
+                        "refl loss": "-40.574",
+                        "slope": "0.334",
+                        "splice loss": "0.557",
+                        "start of curr": "2.020",
+                        "start of next": "17.065",
+                        "type": "0F9999LS {auto} loss/drop/gain"
+                },
+                "event 3": {
+                        "comments": "",
+                        "distance": "17.065",
+                        "end of curr": "79.945",
+                        "end of prev": "2.655",
+                        "peak": "17.081",
+                        "refl loss": "-38.395",
+                        "slope": "0.343",
+                        "splice loss": "22.820",
+                        "start of curr": "17.065",
+                        "start of next": "79.945",
+                        "type": "1E9999LS {auto} reflection"
+                },
                 "num events": 3
         },
         "SupParams": {
@@ -54,73 +110,69 @@
                 "software": "v9.09  VA=110105",
                 "supplier": "OptixS"
         },
-        "_datapts_params": {
-                "offset": "STV",
-                "xscaling": 1
-        },
         "blocks": {
                 "Cksum": {
                         "name": "Cksum",
                         "order": 8,
                         "pos": 32125,
                         "size": 8,
-                        "version": 2.0
+                        "version": "2.00"
                 },
                 "DataPts": {
                         "name": "DataPts",
                         "order": 4,
                         "pos": 520,
                         "size": 31492,
-                        "version": 2.0
+                        "version": "2.00"
                 },
                 "EmbData": {
                         "name": "EmbData",
                         "order": 7,
                         "pos": 32115,
                         "size": 10,
-                        "version": 2.0
+                        "version": "2.00"
                 },
                 "FxdParams": {
                         "name": "FxdParams",
                         "order": 2,
                         "pos": 265,
                         "size": 92,
-                        "version": 2.0
+                        "version": "2.00"
                 },
                 "GenParams": {
                         "name": "GenParams",
                         "order": 0,
                         "pos": 148,
                         "size": 40,
-                        "version": 2.0
+                        "version": "2.00"
                 },
                 "IITEvents": {
                         "name": "IITEvents",
                         "order": 5,
                         "pos": 32012,
                         "size": 12,
-                        "version": 2.0100000000000002
+                        "version": "2.01"
                 },
                 "IITParams": {
                         "name": "IITParams",
                         "order": 6,
                         "pos": 32024,
                         "size": 91,
-                        "version": 2.1
+                        "version": "2.10"
                 },
                 "KeyEvents": {
                         "name": "KeyEvents",
                         "order": 3,
                         "pos": 357,
                         "size": 163,
-                        "version": 2.0
+                        "version": "2.00"
                 },
                 "SupParams": {
                         "name": "SupParams",
                         "order": 1,
                         "pos": 188,
                         "size": 77,
-                        "version": 2.0
+                        "version": "2.00"
                 }
         },
         "filename": "sample1310_lowDR.sor",
@@ -129,5 +181,5 @@
                 "nblocks": 9,
                 "nbytes": 148
         },
-        "version": 2.0
+        "version": "2.00"
 }

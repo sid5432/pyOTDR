@@ -5,25 +5,34 @@
                 "match": true
         },
         "DataPts": {
-                "num data points": 16000
+                "_datapts_params": {
+                        "offset": "STV",
+                        "xscaling": 1
+                },
+                "max before offset": 65.535,
+                "min before offset": 0.535,
+                "num data points": 16000,
+                "num data points 2": 16000,
+                "scaling factor": 1.0,
+                "unknown": 1
         },
         "FxdParams": {
-                "BC": "-77.00",
-                "EOT thr": "6.000",
+                "BC": "-77.00 dB",
+                "EOT thr": "6.000 dB",
                 "date/time": "Sat Jun 17 06:01:11 2006 (1150538471 sec)",
                 "index": "1.467700",
-                "loss thr": "0.050",
+                "loss thr": "0.050 dB",
                 "num averages": 6656,
                 "num data points": 16000,
-                "pulse width": "100",
+                "pulse width": "100 ns",
                 "range": 8.17040152619745,
-                "refl thr": "-65.000",
+                "refl thr": "-65.000 dB",
                 "resolution": 0.5106500953873406,
-                "sample spacing": 0.0025,
+                "sample spacing": "0.0025 usec",
                 "unit": "mt (meters)",
                 "unknown 1": "00 00 00 00 01 00 ",
                 "unknown 2": "00 00 00 00 FF FF 00 00 00 00 ",
-                "wavelength": "131.0"
+                "wavelength": "131.0 nm"
         },
         "GenParams": {
                 "(unknown 2)": "VALUE 7475",
@@ -39,6 +48,54 @@
                 "wavelength": "1310 nm"
         },
         "KeyEvents": {
+                "Summary": {
+                        "ORL": 30.279,
+                        "ORL finish": 3.787226,
+                        "ORL start": 0.0,
+                        "loss end": 3.787226,
+                        "loss start": 0.0,
+                        "total loss": 2.564
+                },
+                "event 1": {
+                        "comments": "Link Start",
+                        "distance": "0.000",
+                        "refl loss": "-44.478",
+                        "slope": "0.000",
+                        "splice loss": "0.168",
+                        "type": "1F9999LS {auto} reflection"
+                },
+                "event 2": {
+                        "comments": " ",
+                        "distance": "0.091",
+                        "refl loss": "-38.454",
+                        "slope": "0.120",
+                        "splice loss": "0.791",
+                        "type": "1F9999LS {auto} reflection"
+                },
+                "event 3": {
+                        "comments": " ",
+                        "distance": "0.395",
+                        "refl loss": "-51.983",
+                        "slope": "0.362",
+                        "splice loss": "0.045",
+                        "type": "1F9999LS {auto} reflection"
+                },
+                "event 4": {
+                        "comments": " ",
+                        "distance": "0.796",
+                        "refl loss": "-58.134",
+                        "slope": "0.334",
+                        "splice loss": "0.347",
+                        "type": "1F9999LS {auto} reflection"
+                },
+                "event 5": {
+                        "comments": " ",
+                        "distance": "3.787",
+                        "refl loss": "-30.760",
+                        "slope": "0.321",
+                        "splice loss": "0.000",
+                        "type": "1E9999LS {auto} reflection"
+                },
                 "num events": 5
         },
         "SupParams": {
@@ -50,66 +107,62 @@
                 "software": "0.0.14",
                 "supplier": "Noyes"
         },
-        "_datapts_params": {
-                "offset": "STV",
-                "xscaling": 1
-        },
         "blocks": {
                 "Cksum": {
                         "name": "Cksum",
                         "order": 7,
                         "pos": 32768,
                         "size": 2,
-                        "version": 1.0
+                        "version": "1.00"
                 },
                 "DataPts": {
                         "name": "DataPts",
                         "order": 3,
                         "pos": 254,
                         "size": 32012,
-                        "version": 1.0
+                        "version": "1.00"
                 },
                 "FxdParams": {
                         "name": "FxdParams",
                         "order": 2,
                         "pos": 200,
                         "size": 54,
-                        "version": 1.1
+                        "version": "1.10"
                 },
                 "GenParams": {
                         "name": "GenParams",
                         "order": 0,
                         "pos": 124,
                         "size": 50,
-                        "version": 1.1
+                        "version": "1.10"
                 },
                 "KeyEvents": {
                         "name": "KeyEvents",
                         "order": 4,
                         "pos": 32266,
                         "size": 153,
-                        "version": 1.1
+                        "version": "1.10"
                 },
                 "Noyes2": {
                         "name": "Noyes2",
                         "order": 5,
                         "pos": 32419,
                         "size": 292,
-                        "version": 2.02
+                        "version": "2.02"
                 },
                 "Noyes3": {
                         "name": "Noyes3",
                         "order": 6,
                         "pos": 32711,
                         "size": 57,
-                        "version": 2.02
+                        "version": "2.02"
                 },
                 "SupParams": {
                         "name": "SupParams",
                         "order": 1,
                         "pos": 174,
                         "size": 26,
-                        "version": 1.0
+                        "version": "1.00"
                 }
         },
         "filename": "M200_Sample_005_S13.sor",
@@ -118,5 +171,5 @@
                 "nblocks": 8,
                 "nbytes": 124
         },
-        "version": 1.0
+        "version": "1.00"
 }

@@ -61,6 +61,8 @@ def _process_keyevents(fh, format, results, debug=False, logfile=sys.stderr):
     pat = re.compile("(.)(.)9999LS")
     
     for j in xrange(nev):
+        x2ref = xref['event %d' % (1+j)] = {};
+        
         xid  = parts.get_uint(fh, 2)             # 00-01: event number
         dist = parts.get_uint(fh, 4) * factor    # 02-05: time-of-travel; need to convert to distance
         
@@ -101,6 +103,21 @@ def _process_keyevents(fh, format, results, debug=False, logfile=sys.stderr):
             
         comments = parts.get_string(fh)
         
+        x2ref['type'] = xtype
+        x2ref['distance'] = ("%.3f" % dist)
+        x2ref['slope'] = ("%.3f" % slope)
+        x2ref['splice loss'] = ("%.3f" % splice)
+        x2ref['refl loss'] = ("%.3f" % refl)
+        x2ref['comments'] = comments
+        
+        if format == 2:
+            x2ref['end of prev'] = ("%.3f" % end_prev)
+            x2ref['start of curr'] = ("%.3f" % start_curr)
+            x2ref['end of curr'] = ("%.3f" % end_curr)
+            x2ref['start of next'] = ("%.3f" % start_next)
+            x2ref['peak'] = ("%.3f" % pkpos)
+        
+        
         if debug:
             print >>logfile,"%s Event %d: type %s" % (sep,xid, xtype)
             print >>logfile,"%s%s distance: %.3f km" % (sep,sep,dist)
@@ -133,6 +150,14 @@ def _process_keyevents(fh, format, results, debug=False, logfile=sys.stderr):
         print >>logfile,"%s%s loss end: %f km" % (sep,sep,loss_finish)
         print >>logfile,"%s%s ORL start: %f km" % (sep,sep,orl_start)
         print >>logfile,"%s%s ORL finish: %f km" % (sep,sep,orl_finish)
+    
+    x3ref = xref["Summary"] = {}
+    x3ref["total loss"] = float( "%.3f" % total)
+    x3ref["ORL"]        = float( "%.3f" % orl )
+    x3ref["loss start"] = float( "%.6f" % loss_start )
+    x3ref["loss end"]   = float( "%.6f" % loss_finish )
+    x3ref["ORL start"]  = float( "%.6f" % orl_start )
+    x3ref["ORL finish"] = float( "%.6f" % orl_finish )
     
     # ................
     status = 'ok'

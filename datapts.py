@@ -39,7 +39,7 @@ def process(fh, results, tracedata, debug=False, logfile=sys.stderr):
     xref = results[bname]
     
     # extra parameters
-    results['_datapts_params'] = { 'xscaling': 1, 'offset': 'STV' }
+    xref['_datapts_params'] = { 'xscaling': 1, 'offset': 'STV' }
     # method used by STV: minimum reading shifted to zero
     # method used by AFL/Noyes Trace.Net: maximum reading shifted to zero (approx)
     
@@ -66,7 +66,7 @@ def _process_data(fh, results, tracedata, debug=False, logfile=sys.stderr, dumpt
     # special case:
     # old Noyes/AFL OFL250 model is off by factor of 10
     if model == 'OFL250':
-        results['_datapts_params']['xscaling'] = 0.1
+        xref['_datapts_params']['xscaling'] = 0.1
     
     if debug:
         print >>logfile,"%s [initial 12 byte header follows]" % sep
@@ -82,15 +82,18 @@ def _process_data(fh, results, tracedata, debug=False, logfile=sys.stderr, dumpt
         print >>logfile,"%s num data points = %d" % (sep,N)
     
     val = parts.get_uint(fh, 2)
+    xref['unknown'] = val
     if debug:
         print >>logfile,"%s unknown #1 = %d" % (sep,val)
     
     val = parts.get_uint(fh, 4)
+    xref['num data points 2'] = val
     if debug:
         print >>logfile,"%s num data points again = %d" % (sep,val)
 
     val = parts.get_uint(fh, 2)
     scaling_factor = val / 1000.0
+    xref['scaling factor'] = scaling_factor
     if debug:
         print >>logfile,"%s scaling factor = %f" % (sep,scaling_factor)
     
@@ -107,13 +110,16 @@ def _process_data(fh, results, tracedata, debug=False, logfile=sys.stderr, dumpt
     fs = 0.001* scaling_factor
     disp_min = "%.3f" % (ymin * fs)
     disp_max = "%.3f" % (ymax * fs)
+    xref['max before offset'] = float(disp_max)
+    xref['min before offset'] = float(disp_min)
+    
     if debug:
         print >>logfile,"%s before applying offset: max %s dB, min %s dB" % (sep, disp_max, disp_min)
     
     # .........................................
     # save to file
-    offset = results['_datapts_params']['offset']
-    xscaling = results['_datapts_params']['xscaling']
+    offset = xref['_datapts_params']['offset']
+    xscaling = xref['_datapts_params']['xscaling']
     
     # convert/scale to dB
     if offset == 'STV':

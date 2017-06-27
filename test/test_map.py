@@ -23,7 +23,7 @@ def test_map():
     # map block
     ref = results['blocks']
     assert ref['Cksum']['pos'] == 25706
-    assert ref['Cksum']['version'] == 1.0
+    assert ref['Cksum']['version'] == "1.00"
 
     assert ref['DataPts']['pos'] == 328
     assert ref['DataPts']['size'] == 23564

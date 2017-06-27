@@ -23,14 +23,14 @@ def process(fh, results, debug=False, logfile=sys.stderr):
         fh.seek(0)
     
     # get version number
-    results['version'] = parts.get_uint(fh, 2) * 0.01
+    results['version'] = "%.2f" % (parts.get_uint(fh, 2) * 0.01)
     
     # get number of bytes in map block
     results['mapblock'] = dict();
     results['mapblock']['nbytes'] = parts.get_uint(fh,4)
     
     if debug:
-        print >> logfile, "MAIN: Version %.2f, block size %d bytes; next position 0x%X" % \
+        print >> logfile, "MAIN: Version %s, block size %d bytes; next position 0x%X" % \
         (results['version'], results['mapblock']['nbytes'], fh.tell())
     
     # get number of block; not including the Map block
@@ -50,14 +50,14 @@ def process(fh, results, debug=False, logfile=sys.stderr):
     
     for i in xrange( results['mapblock']['nblocks'] ):
         bname = parts.get_string(fh)
-        bver  = parts.get_uint(fh,2) * 0.01
+        bver  = "%.2f" % (parts.get_uint(fh,2) * 0.01)
         bsize = parts.get_uint(fh,4)
         
         ref = { 'name': bname, 'version': bver, 'size': bsize, 'pos': startpos, 'order': i }
         results['blocks'][bname] = ref
         
         if debug:
-            print >> logfile, "MAIN: %s block: version %.2f," % (bname, bver),
+            print >> logfile, "MAIN: %s block: version %s," % (bname, bver),
             print >> logfile, "block size %d bytes," % (bsize),
             print >> logfile, "start at pos 0x%X" % startpos
         

@@ -159,13 +159,14 @@ def _process_fields(fh, plist, results, debug=False, logfile=sys.stderr):
         # .................................
         if debug:
             print >>logfile,"%s %d. %s: %s %s" % (sep, count, name, xstr, unit)
-            
-        xref[name] = xstr
+        
+        xref[name] = xstr if unit=="" else str(xstr)+" "+unit
         count += 1
     
     # corrrections/adjustment:
     ior = float(xref['index'])
-    dx  = float(xref['sample spacing']) * parts.sol / ior
+    ss = xref['sample spacing'].split(' ')[0]
+    dx  = float( ss ) * parts.sol / ior
     xref['range'] = dx * int(xref['num data points'])
     xref['resolution'] = dx * 1000.0 # in meters
     if debug:

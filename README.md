@@ -59,4 +59,21 @@ where "mfile.sor" is the name (path) to your SOR file.  A OTDR trace file "myfil
 
 There is also a Clojure version, [cljotdr](https://github.com/sid5432/cljotdr); this will be of interest to people looking for a Java version, since Clojure runs on top of a Java Virtual Machine (JVM).
 
-(*Last Revised 2017-06-27*)
+
+## Install
+
+This program require python 2. to install dependency :
+
+    pip install -r requirement.txt
+
+### Docker
+
+A docker file is provided to help you test this program. 
+
+     docker build -t test-pyotdr .
+     docker run test-pyotdr data/demo_ab.sor
+
+
+(*Last Revised 2017-10-25*)
+
+

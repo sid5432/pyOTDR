@@ -1,6 +1,7 @@
 #!/usr/bin/python
+from __future__ import absolute_import, print_function, unicode_literals
 import sys
-import parts
+from . import parts
 
 sep = "    :"
 
@@ -22,7 +23,7 @@ def process(fh, results, debug=False, logfile=sys.stderr):
         startpos = ref['pos']
         fh.seek( startpos )
     except:
-        print >>logfile, pname," ",bname,"block starting position unknown"
+        print(pname," ",bname,"block starting position unknown", file=logfile)
         return status
     
     format = results['format']
@@ -30,7 +31,7 @@ def process(fh, results, debug=False, logfile=sys.stderr):
     if format == 2:
         mystr = fh.read(hsize)
         if mystr != bname+'\0':
-            print >>logfile, pname," incorrect header ",mystr
+            print(pname," incorrect header ",mystr, file=logfile)
             return status
     
     results[bname] = dict()
@@ -50,7 +51,7 @@ def process(fh, results, debug=False, logfile=sys.stderr):
 # ================================================================
 def build_condition(bcstr):
     """decode build condition"""
-    
+    bcstr = bcstr.decode('utf-8')
     if bcstr == 'BC':
         bcstr += " (as-built)"
     elif bcstr == 'CC':
@@ -95,7 +96,7 @@ def process1(fh, results, debug=False, logfile=sys.stderr):
     lang = fh.read(2)
     xref['language'] = lang
     if debug:
-        print >>logfile, "%s  language: '%s', next pos %d" % (sep, lang, fh.tell())
+        print("%s  language: '%s', next pos %d" % (sep, lang, fh.tell()), file=logfile)
     
     fields = (
               "cable ID",    # ........... 0
@@ -125,7 +126,7 @@ def process1(fh, results, debug=False, logfile=sys.stderr):
             xstr = parts.get_string(fh)
         
         if debug:
-            print >>logfile, "%s %d. %s: %s" % (sep, count, field, xstr)
+            print("%s %d. %s: %s" % (sep, count, field, xstr), file=logfile)
         
         xref[field] = xstr
         count += 1
@@ -143,7 +144,7 @@ def process2(fh, results, debug=False, logfile=sys.stderr):
     lang = fh.read(2)
     xref['language'] = lang
     if debug:
-        print >>logfile, "%s  language: '%s', next pos %d" % (sep, lang, fh.tell())
+        print("%s  language: '%s', next pos %d" % (sep, lang, fh.tell()), file=logfile)
     
     fields = (
               "cable ID",    # ........... 0
@@ -178,7 +179,7 @@ def process2(fh, results, debug=False, logfile=sys.stderr):
             xstr = parts.get_string(fh)
         
         if debug:
-            print >>logfile, "%s %d. %s: %s" % (sep, count, field, xstr)
+            print("%s %d. %s: %s" % (sep, count, field, xstr), file=logfile)
         
         xref[field] = xstr
         count += 1

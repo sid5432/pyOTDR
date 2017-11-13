@@ -1,4 +1,5 @@
 #!/usr/bin/python
+from __future__ import absolute_import, print_function, unicode_literals
 import sys
 import struct
 import crcmod
@@ -22,14 +23,14 @@ def sorfile(filename):
     try:
         fh0 = open(filename,"rb")
     except IOError:
-        print "Failed to read ",filename
+        print("Failed to read {}".format(filename))
         return None
     
     # wrapper around file handler to also process CRC checksum along the way
     class FH:
         def __init__(self):
             self.bufsize = 2048 # adjust as needed
-            self.buffer = ""
+            self.buffer = b""
             self.spaceleft = self.bufsize
             """
             Calculate the CRC16 CCITT checksum of *data*.
@@ -49,7 +50,7 @@ def sorfile(filename):
                 # process then clear buffer
                 self.crc16.update( self.buffer )
                 # print "Clear!"
-                self.buffer = ""
+                self.buffer = b""
                 self.spaceleft = self.bufsize
             
             self.buffer += buf
@@ -64,7 +65,7 @@ def sorfile(filename):
         def seek(self,*args,**kargs):
             # assume a rewind, and reset buffer
             if args[0] == 0:
-                self.buffer = ""
+                self.buffer = b""
                 self.spaceleft = self.bufsize
                 self.crc16 = crcmod.predefined.Crc('crc-ccitt-false')
             
@@ -83,17 +84,16 @@ def sorfile(filename):
 # -----------------------------------------------------
 def get_string(fh):
     """fh is the file handle """
-    mystr = ''
-    
+    mystr = b''
     byte = fh.read(1)
     while byte != '':
         tt = struct.unpack("c",byte)[0]
-        if tt == "\x00":
+        if tt == b"\x00":
             break
         mystr += tt
         byte = fh.read(1)
         
-    return mystr
+    return mystr.decode('utf-8')
 
 # -----------------------------------------------------
 def get_float(fh, nbytes):
@@ -104,7 +104,7 @@ def get_float(fh, nbytes):
     elif nbytes == 8:
         val = struct.unpack("<d", tmp)[0]
     else:
-        print "parts.get_float(): Invalid number of bytes ",nbytes
+        print("parts.get_float(): Invalid number of bytes ",nbytes)
         val = None
     
     return val
@@ -128,7 +128,7 @@ def get_uint(fh, nbytes=2):
         val = struct.unpack("<Q",word)[0]
     else:
         val = None
-        print "parts.get_uint(): Invalid number of bytes ",nbytes
+        print("parts.get_uint(): Invalid number of bytes ",nbytes)
     
     return val
 
@@ -151,7 +151,7 @@ def get_signed(fh, nbytes=2):
         val = struct.unpack("<q",word)[0]
     else:
         val = None
-        print "parts.get_signed(): Invalid number of bytes ",nbytes
+        print("parts.get_signed(): Invalid number of bytes ",nbytes)
     
     return val
 
@@ -162,7 +162,7 @@ def get_hex(fh, nbytes=1):
     and display as hexidecimal
     """
     hstr = ""
-    for i in xrange(nbytes):
+    for i in range(nbytes):
         b = "%02X " % ord(fh.read(1)[0])
         hstr += b
     
@@ -183,7 +183,7 @@ def slurp(fh, bname, results, debug=False, logfile=sys.stderr):
         startpos = ref['pos']
         fh.seek( startpos )
     except:
-        print >>logfile, pname," ",bname,"block starting position unknown"
+        print(pname," ",bname,"block starting position unknown", file=logfile)
         return status
     
     nn = ref['size']

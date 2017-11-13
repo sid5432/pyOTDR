@@ -1,7 +1,8 @@
 #!/usr/bin/python
+from __future__ import absolute_import, print_function, unicode_literals
 import sys
 import crcmod
-import parts
+from . import parts
 
 def process(fh, results, debug=False, logfile=sys.stderr):
     """
@@ -22,7 +23,7 @@ def process(fh, results, debug=False, logfile=sys.stderr):
         startpos = ref['pos']
         fh.seek( startpos )
     except:
-        print >>logfile, pname," ",bname,"block starting position unknown"
+        print(pname," ",bname,"block starting position unknown", file=logfile)
         return status
     
     format = results['format']
@@ -30,7 +31,7 @@ def process(fh, results, debug=False, logfile=sys.stderr):
     if format == 2:
         mystr = fh.read(hsize)
         if mystr != bname+'\0':
-            print >>logfile, pname," incorrect header ",mystr
+            print(pname," incorrect header ", mystr, file=logfile)  
             return status
     
     results[bname] = dict()
@@ -49,8 +50,8 @@ def process(fh, results, debug=False, logfile=sys.stderr):
     
 
     if debug:
-        print >>logfile, "%s checksum from file %d (0x%X)" % (sep, csum, csum)
-        print >>logfile, "%s checksum calculated %d (0x%X) %s" % (sep, digest, digest, verdict)
+        print("%s checksum from file %d (0x%X)" % (sep, csum, csum), file=logfile)  
+        print("%s checksum calculated %d (0x%X) %s" % (sep, digest, digest, verdict), file=logfile)
     
     status = 'ok'
     return status

@@ -1,8 +1,9 @@
 #!/usr/bin/python
+from __future__ import absolute_import, print_function, unicode_literals
 import sys
 import os
 import functools
-import parts
+from . import parts
 
 sep = "    :"
 
@@ -24,7 +25,7 @@ def process(fh, results, tracedata, debug=False, logfile=sys.stderr):
         startpos = ref['pos']
         fh.seek( startpos )
     except:
-        print >>logfile, pname," ",bname,"block starting position unknown"
+        print(pname, " ", bname, "block starting position unknown", file=logfile)
         return status
     
     format = results['format']
@@ -32,7 +33,7 @@ def process(fh, results, tracedata, debug=False, logfile=sys.stderr):
     if format == 2:
         mystr = fh.read(hsize)
         if mystr != bname+'\0':
-            print >>logfile, pname," incorrect header ",mystr
+            print(pname, " incorrect header ", mystr, file=logfile)
             return status
     
     results[bname] = dict()
@@ -69,39 +70,39 @@ def _process_data(fh, results, tracedata, debug=False, logfile=sys.stderr, dumpt
         xref['_datapts_params']['xscaling'] = 0.1
     
     if debug:
-        print >>logfile,"%s [initial 12 byte header follows]" % sep
+        print("%s [initial 12 byte header follows]" % sep, file=logfile)
     
     N = parts.get_uint(fh, 4)
     # confirm N equal to FxdParams num data points
     if N != results['FxdParams']['num data points']:
-        print "!!! WARNING !!! block says number of data points ",\
-        "is ",N," instead of ",results['FxdParams']['num data points']
+        print("!!! WARNING !!! block says number of data points ",\
+        "is ",N," instead of ",results['FxdParams']['num data points'])
     
     xref['num data points'] = N
     if debug:
-        print >>logfile,"%s num data points = %d" % (sep,N)
+        print("%s num data points = %d" % (sep,N), file=logfile)
     
     val = parts.get_uint(fh, 2)
     xref['unknown'] = val
     if debug:
-        print >>logfile,"%s unknown #1 = %d" % (sep,val)
+        print("%s unknown #1 = %d" % (sep,val), file=logfile)
     
     val = parts.get_uint(fh, 4)
     xref['num data points 2'] = val
     if debug:
-        print >>logfile,"%s num data points again = %d" % (sep,val)
+        print("%s num data points again = %d" % (sep,val), file=logfile)
 
     val = parts.get_uint(fh, 2)
     scaling_factor = val / 1000.0
     xref['scaling factor'] = scaling_factor
     if debug:
-        print >>logfile,"%s scaling factor = %f" % (sep,scaling_factor)
+        print("%s scaling factor = %f" % (sep,scaling_factor), file=logfile)
     
     # .....................................
     # adjusted resolution
     dx = results['FxdParams']['resolution']
     dlist = []
-    for i in xrange(N):
+    for i in range(N):
         val = parts.get_uint(fh, 2)
         dlist.append(val)
     
@@ -114,7 +115,7 @@ def _process_data(fh, results, tracedata, debug=False, logfile=sys.stderr, dumpt
     xref['min before offset'] = float(disp_min)
     
     if debug:
-        print >>logfile,"%s before applying offset: max %s dB, min %s dB" % (sep, disp_max, disp_min)
+        print("%s before applying offset: max %s dB, min %s dB" % (sep, disp_max, disp_min), file=logfile)
     
     # .........................................
     # save to file
@@ -129,7 +130,7 @@ def _process_data(fh, results, tracedata, debug=False, logfile=sys.stderr, dumpt
     else: # invert
         nlist = [-x*fs for x in dlist]
     
-    for i in xrange(N):
+    for i in range(N):
         # more work but (maybe) less rounding issues
         x = dx*i*xscaling / 1000.0 # output in kkm
         tracedata.append( "%f\t%f" % (x, nlist[i]) )

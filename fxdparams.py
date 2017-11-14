@@ -1,7 +1,8 @@
 #!/usr/bin/python
+from __future__ import absolute_import, print_function, unicode_literals
 import sys
 import datetime
-import parts
+from . import parts
 
 sep = "    :"
 unit_map = {
@@ -36,7 +37,7 @@ def process(fh, results, debug=False, logfile=sys.stderr):
         startpos = ref['pos']
         fh.seek( startpos )
     except:
-        print >>logfile, pname," ",bname,"block starting position unknown"
+        print(pname," ",bname,"block starting position unknown", file=logfile)
         return status
     
     format = results['format']
@@ -44,7 +45,7 @@ def process(fh, results, debug=False, logfile=sys.stderr):
     if format == 2:
         mystr = fh.read(hsize)
         if mystr != bname+'\0':
-            print >>logfile, pname," incorrect header ",mystr
+            print(pname," incorrect header ",mystr, file=logfile)
             return status
     
     results[bname] = dict()
@@ -142,13 +143,14 @@ def _process_fields(fh, plist, results, debug=False, logfile=sys.stderr):
         else:
             val = fh.read(fsize)
             xstr = val
-        
+
         # .................................
         if name == 'date/time':
             # xstr = str(datetime.datetime.fromtimestamp(val))+(" (%d sec)" % val)
             xstr = datetime.datetime.fromtimestamp(val).strftime("%a %b %d %H:%M:%S %Y") + \
             (" (%d sec)" % val)
         elif name == 'unit':
+            xstr = xstr.decode('utf-8')
             xstr += unit_map[ xstr ]
         elif name == 'trace type':
             try:
@@ -158,7 +160,7 @@ def _process_fields(fh, plist, results, debug=False, logfile=sys.stderr):
             
         # .................................
         if debug:
-            print >>logfile,"%s %d. %s: %s %s" % (sep, count, name, xstr, unit)
+            print("%s %d. %s: %s %s" % (sep, count, name, xstr, unit), file=logfile)
         
         xref[name] = xstr if unit=="" else str(xstr)+" "+unit
         count += 1
@@ -170,10 +172,10 @@ def _process_fields(fh, plist, results, debug=False, logfile=sys.stderr):
     xref['range'] = dx * int(xref['num data points'])
     xref['resolution'] = dx * 1000.0 # in meters
     if debug:
-        print >>logfile,""
-        print >>logfile,"%s [adjusted for refractive index]" % (sep)
-        print >>logfile,"%s resolution = %.14f m" % (sep,xref['resolution'])
-        print >>logfile,"%s range      = %.13f km" % (sep,xref['range'])
+        print("", file=logfile)
+        print("%s [adjusted for refractive index]" % (sep), file=logfile)
+        print("%s resolution = %.14f m" % (sep,xref['resolution']), file=logfile)
+        print("%s range      = %.13f km" % (sep,xref['range']), file=logfile)
 
     status = 'ok'
     

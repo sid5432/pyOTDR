@@ -1,16 +1,17 @@
 #!/usr/bin/python
+from __future__ import absolute_import, print_function, unicode_literals
 import sys
 import os
 
-import parts
-import mapblock
-import genparams
-import supparams
-import fxdparams
-import keyevents
-import datapts
-import cksum
-import dump
+from . import parts
+from . import mapblock 
+from . import genparams
+from . import supparams
+from . import fxdparams
+from . import keyevents
+from . import datapts
+from . import cksum
+from . import dump
 
 # -----------------------------------------------------
 def sorparse(filename, debug=False, logfile=sys.stdout, dumptrace=True):
@@ -45,7 +46,7 @@ def sorparse(filename, debug=False, logfile=sys.stdout, dumptrace=True):
         start = ref['pos']
         
         if debug:
-            print >>logfile, "MAIN:  %s block: %d bytes, start pos 0x%X (%d)" % (bname, bsize, start, start)
+            print("MAIN:  %s block: %d bytes, start pos 0x%X (%d)" % (bname, bsize, start, start), file=logfile)
         
         if bname == 'GenParams':
             status = genparams.process(fh, results, debug=debug, logfile=logfile)
@@ -65,7 +66,7 @@ def sorparse(filename, debug=False, logfile=sys.stdout, dumptrace=True):
             pass
         
         if debug:
-            print >>logfile
+            print(file=logfile)
             
         # stop immediately if any errors
         if status != 'ok':
@@ -82,8 +83,8 @@ if __name__ == '__main__':
     import os
     
     if len(sys.argv) < 2:
-        print "USAGE: %s SOR_file [format]" % sys.argv[0]
-        print "     : format: JSON (default) or XML"
+        print("USAGE: %s SOR_file [format]" % sys.argv[0])
+        print("     : format: JSON (default) or XML")
         sys.exit()
     
     filename = sys.argv[1]
@@ -92,7 +93,6 @@ if __name__ == '__main__':
         opformat = "XML" if sys.argv[2] == "XML" else "JSON"
     
     logfile = sys.stdout
-    # logfile = open(os.devnull,"w")
     
     status, results, tracedata = sorparse(filename, debug=True, logfile=logfile)
     
@@ -112,5 +112,5 @@ if __name__ == '__main__':
     
     with open(opfile,"w") as output:
         for xy in tracedata:
-            print >>output, xy
+            print(xy, file=output)
 

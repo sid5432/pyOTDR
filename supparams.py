@@ -1,6 +1,7 @@
 #!/usr/bin/python
+from __future__ import absolute_import, print_function, unicode_literals
 import sys
-import parts
+from . import parts
 
 sep = "    :"
 
@@ -22,7 +23,7 @@ def process(fh, results, debug=False, logfile=sys.stderr):
         startpos = ref['pos']
         fh.seek( startpos )
     except:
-        print >>logfile, pname," ",bname,"block starting position unknown"
+        print(pname," ",bname,"block starting position unknown", file=logfile)
         return status
     
     format = results['format']
@@ -30,7 +31,7 @@ def process(fh, results, debug=False, logfile=sys.stderr):
     if format == 2:
         mystr = fh.read(hsize)
         if mystr != bname+'\0':
-            print >>logfile, pname," incorrect header ",mystr
+            print(pname," incorrect header ",mystr, file=logfile)
             return status
     
     results[bname] = dict()
@@ -65,7 +66,7 @@ def process_genparam(fh, results, debug=False, logfile=sys.stderr):
     for field in fields:
         xstr = parts.get_string(fh)
         if debug:
-            print >>logfile, "%s %d. %s: %s" % (sep, count, field, xstr)
+            print("%s %d. %s: %s" % (sep, count, field, xstr), file=logfile)
         
         xref[field] = xstr
         count += 1

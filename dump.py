@@ -1,8 +1,9 @@
 #!/usr/bin/python
+from __future__ import absolute_import, print_function, unicode_literals
 import sys
 import json
 import lazyxml
-import parts
+from . import parts
 
 def replace_keys(results):
     
@@ -22,11 +23,11 @@ def tofile(results, logfile, format='JSON'):
     """
     
     if format == 'JSON':
-        print >>logfile, json.dumps(results, sort_keys=True, indent=8, separators=(',',': '))
+        print(json.dumps(results, sort_keys=True, indent=8, separators=(',',': ')), file=logfile)
     else:
         newresults = replace_keys(results)
         xmlstring = lazyxml.dumps(newresults, indent=' '*4, cdata=False, root='sor')
-        print >>logfile, xmlstring
+        print(xmlstring, file=logfile)
         
         # sanity check; should run without problems
         # lazyxml.loads(xmlstring)

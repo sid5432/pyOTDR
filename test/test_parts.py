@@ -1,4 +1,5 @@
 #!/usr/bin/python
+from __future__ import absolute_import, print_function, unicode_literals
 import sys
 import os
 cdir = os.path.dirname( os.path.realpath(__file__) )
@@ -84,7 +85,7 @@ def test_get_signed():
     assert fstr == -38395
     
     fstr = parts.get_signed(fh,8)
-    assert fstr == 6002235321314002225L
+    assert fstr == 6002235321314002225
     
     fh.close()
     

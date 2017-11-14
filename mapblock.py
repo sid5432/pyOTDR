@@ -1,6 +1,7 @@
 #!/usr/bin/python
+from __future__ import absolute_import, print_function, unicode_literals
 import sys
-import parts
+from . import parts
 
 def process(fh, results, debug=False, logfile=sys.stderr):
     """
@@ -14,11 +15,11 @@ def process(fh, results, debug=False, logfile=sys.stderr):
     if tt == 'Map':
         results['format'] = 2
         if debug:
-            print >> logfile, "MAIN: bellcore 2.x version"
+            print("MAIN: bellcore 2.x version", file=logfile)
     else:
         results['format'] = 1
         if debug:
-            print >> logfile, "MAIN: bellcore 1.x version"
+            print( "MAIN: bellcore 1.x version", file=logfile)
         # rewind to start
         fh.seek(0)
     
@@ -30,25 +31,25 @@ def process(fh, results, debug=False, logfile=sys.stderr):
     results['mapblock']['nbytes'] = parts.get_uint(fh,4)
     
     if debug:
-        print >> logfile, "MAIN: Version %s, block size %d bytes; next position 0x%X" % \
-        (results['version'], results['mapblock']['nbytes'], fh.tell())
+        print("MAIN: Version %s, block size %d bytes; next position 0x%X" % \
+        (results['version'], results['mapblock']['nbytes'], fh.tell()), file=logfile)
     
     # get number of block; not including the Map block
     results['mapblock']['nblocks'] = parts.get_uint(fh, 2) - 1
     
     if debug:
-        print >> logfile, "MAIN: %d blocks to follow; next position 0x%X" % \
-        (results['mapblock']['nblocks'], fh.tell() )
-        print >> logfile, parts.divider
+        print("MAIN: %d blocks to follow; next position 0x%X" % \
+                (results['mapblock']['nblocks'], fh.tell() ), file=logfile)
+        print(parts.divider, file=logfile)
     
     # get block information
     if debug:
-        print >> logfile, "MAIN: BLOCKS:"
+        print("MAIN: BLOCKS:", file=logfile) 
     
     results['blocks'] = dict()
     startpos = results['mapblock']['nbytes']
     
-    for i in xrange( results['mapblock']['nblocks'] ):
+    for i in range( results['mapblock']['nblocks'] ):
         bname = parts.get_string(fh)
         bver  = "%.2f" % (parts.get_uint(fh,2) * 0.01)
         bsize = parts.get_uint(fh,4)
@@ -57,17 +58,17 @@ def process(fh, results, debug=False, logfile=sys.stderr):
         results['blocks'][bname] = ref
         
         if debug:
-            print >> logfile, "MAIN: %s block: version %s," % (bname, bver),
-            print >> logfile, "block size %d bytes," % (bsize),
-            print >> logfile, "start at pos 0x%X" % startpos
+            print("MAIN: %s block: version %s," % (bname, bver), file=logfile)
+            print("block size %d bytes," % (bsize), file=logfile)
+            print("start at pos 0x%X" % startpos, file=logfile)
         
         # start position of next block
         startpos += bsize
     
     if debug:
-        print >> logfile, parts.divider,"\n"
-        print >> logfile, "MAIN: next position 0x%X" % fh.tell()
-        print >> logfile, parts.divider,"\n\n"
+        print(parts.divider,"\n", file=logfile)
+        print("MAIN: next position 0x%X" % fh.tell(), file=logfile)
+        print(parts.divider,"\n\n", file=logfile)
     
     status = 'ok'
     return status

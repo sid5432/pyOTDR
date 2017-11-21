@@ -29,9 +29,9 @@ def process(fh, results, debug=False, logfile=sys.stderr):
     format = results['format']
     
     if format == 2:
-        mystr = fh.read(hsize)
+        mystr = fh.read(hsize).decode('ascii')
         if mystr != bname+'\0':
-            print(pname," incorrect header ",mystr, file=logfile)
+            print(pname," incorrect header '",mystr,"' vs '",bname,"'", file=logfile)
             return status
     
     results[bname] = dict()
@@ -51,7 +51,6 @@ def process(fh, results, debug=False, logfile=sys.stderr):
 # ================================================================
 def build_condition(bcstr):
     """decode build condition"""
-    bcstr = bcstr.decode('utf-8')
     if bcstr == 'BC':
         bcstr += " (as-built)"
     elif bcstr == 'CC':
@@ -93,7 +92,7 @@ def process1(fh, results, debug=False, logfile=sys.stderr):
     bname = "GenParams"
     xref  = results[bname]
     
-    lang = fh.read(2)
+    lang = fh.read(2).decode('ascii')
     xref['language'] = lang
     if debug:
         print("%s  language: '%s', next pos %d" % (sep, lang, fh.tell()), file=logfile)
@@ -115,7 +114,7 @@ def process1(fh, results, debug=False, logfile=sys.stderr):
     count = 0
     for field in fields:
         if field == 'build condition':
-            xstr = build_condition( fh.read(2) )
+            xstr = build_condition( fh.read(2).decode('ascii') )
         elif field == 'wavelength':
             val = parts.get_uint(fh, 2)
             xstr = "%d nm" % val
@@ -141,7 +140,7 @@ def process2(fh, results, debug=False, logfile=sys.stderr):
     bname = "GenParams"
     xref  = results[bname]
     
-    lang = fh.read(2)
+    lang = fh.read(2).decode('ascii')
     xref['language'] = lang
     if debug:
         print("%s  language: '%s', next pos %d" % (sep, lang, fh.tell()), file=logfile)
@@ -165,7 +164,7 @@ def process2(fh, results, debug=False, logfile=sys.stderr):
     count = 0
     for field in fields:
         if field == 'build condition':
-            xstr = build_condition( fh.read(2) )
+            xstr = build_condition( fh.read(2).decode('ascii') )
         elif field == 'fiber type':
             val = parts.get_uint(fh, 2)
             xstr = fiber_type( val )

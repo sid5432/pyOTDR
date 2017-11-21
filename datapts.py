@@ -31,7 +31,7 @@ def process(fh, results, tracedata, debug=False, logfile=sys.stderr):
     format = results['format']
     
     if format == 2:
-        mystr = fh.read(hsize)
+        mystr = fh.read(hsize).decode('ascii')
         if mystr != bname+'\0':
             print(pname, " incorrect header ", mystr, file=logfile)
             return status

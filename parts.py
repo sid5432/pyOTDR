@@ -163,7 +163,7 @@ def get_hex(fh, nbytes=1):
     """
     hstr = ""
     for i in range(nbytes):
-        b = "%02X " % ord(fh.read(1)[0])
+        b = "%02X " % ord(fh.read(1))
         hstr += b
     
     return hstr

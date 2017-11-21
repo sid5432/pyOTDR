@@ -43,7 +43,7 @@ def process(fh, results, debug=False, logfile=sys.stderr):
     format = results['format']
     
     if format == 2:
-        mystr = fh.read(hsize)
+        mystr = fh.read(hsize).decode('ascii')
         if mystr != bname+'\0':
             print(pname," incorrect header ",mystr, file=logfile)
             return status
@@ -139,7 +139,7 @@ def _process_fields(fh, plist, results, debug=False, logfile=sys.stderr):
         elif ftype == 'h':
             xstr = parts.get_hex(fh, fsize)
         elif ftype == 's':
-            xstr = fh.read( fsize )
+            xstr = fh.read( fsize ).decode('utf-8')
         else:
             val = fh.read(fsize)
             xstr = val
@@ -150,7 +150,6 @@ def _process_fields(fh, plist, results, debug=False, logfile=sys.stderr):
             xstr = datetime.datetime.fromtimestamp(val).strftime("%a %b %d %H:%M:%S %Y") + \
             (" (%d sec)" % val)
         elif name == 'unit':
-            xstr = xstr.decode('utf-8')
             xstr += unit_map[ xstr ]
         elif name == 'trace type':
             try:

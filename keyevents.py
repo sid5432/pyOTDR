@@ -30,7 +30,7 @@ def process(fh, results, debug=False, logfile=sys.stderr):
     format = results['format']
     
     if format == 2:
-        mystr = fh.read(hsize)
+        mystr = fh.read(hsize).decode('ascii')
         if mystr != bname+'\0':
             print(pname," incorrect header ",mystr, file=logfile)
             return status
@@ -72,8 +72,9 @@ def _process_keyevents(fh, format, results, debug=False, logfile=sys.stderr):
         refl   = parts.get_signed(fh, 4) * 0.001 # 10-13: reflection loss
         
         xtype = fh.read(8)                       # 14-21: event type
+        xtype = xtype.decode('ascii')
         
-        mresults = pat.match(xtype)
+        mresults = pat.match( xtype )
         if mresults != None:
             subtype = mresults.groups(0)[0]
             manual  = mresults.groups(0)[1]

@@ -35,8 +35,14 @@ def test_cksum():
         data = fh.read()
     
     assert len(data) == 25708
-
-    file_chk = data[-1]*256 + data[-2]
+    
+    if sys.version_info > (3,0):
+        # python 3
+        file_chk = data[-1]*256 + data[-2]
+    else:
+        # python 2
+        file_chk = ord(data[-1])*256 + ord(data[-2])
+    
     assert file_chk == 38827
 
     newdata = data[0:-2]
@@ -50,15 +56,21 @@ def test_cksum():
     devnull = open( os.devnull, "w")
     # test against module (SOR version 1)
     status, results, tracedata = read.sorparse(filename, debug=True, logfile=devnull)
-    print(results)
+    # print(results)
     # print "* Our calcuated check sum: ",digest
     assert results['Cksum']['checksum_ours'] == digest
+    
+    # print("--------------- ok version 1 -----------------------")
     
     # SOR version 2
     filename = cdir+"/../data/sample1310_lowDR.sor"
     status, results, tracedata = read.sorparse(filename, debug=True, logfile=devnull)
+    # status, results, tracedata = read.sorparse(filename, debug=True, logfile=sys.stderr)
+
     assert results['Cksum']['checksum_ours'] == 62998
     assert results['Cksum']['checksum'] == 59892
+    
+    # print("--------------- ok version 2 -----------------------")
     
     return
         

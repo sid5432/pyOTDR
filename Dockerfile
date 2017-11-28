@@ -6,4 +6,4 @@ WORKDIR /pyOTDR
 
 RUN pip install -r requirements.txt
 
-ENTRYPOINT ["python2", "read.py"]
+ENTRYPOINT ["python2", "pyOTDR.py"]

@@ -106,7 +106,7 @@ def process1(fh, results, debug=False, logfile=sys.stderr):
               "location B", # ............ 4
               "cable code/fiber type", # ............ 5
               "build condition", # ....... 6: fixed 2 bytes char/string
-              "(unknown 2)", # ........... 7: fixed 4 bytes
+              "user offset", # ........... 7: fixed 4 bytes (Andrew Jones)
               "operator",    # ........... 8
               "comments",    # ........... 9
              )
@@ -118,9 +118,9 @@ def process1(fh, results, debug=False, logfile=sys.stderr):
         elif field == 'wavelength':
             val = parts.get_uint(fh, 2)
             xstr = "%d nm" % val
-        elif field == "(unknown 2)":
-            val = parts.get_uint(fh, 4)
-            xstr = "VALUE %d" % val
+        elif field == "user offset":
+            val = parts.get_signed(fh, 4)
+            xstr = "%d" % val
         else:
             xstr = parts.get_string(fh)
         
@@ -156,9 +156,10 @@ def process2(fh, results, debug=False, logfile=sys.stderr):
               "location B", # ............ 5
               "cable code/fiber type", # ............ 6
               "build condition", # ....... 7: fixed 2 bytes char/string
-              "(unknown 2)", # ........... 8: fixed 8 bytes
-              "operator",    # ........... 9
-              "comments",    # ........... 10
+              "user offset", # ........... 8: fixed 4 bytes int (Andrew Jones)
+              "user offset distance", # .. 9: fixed 4 bytes int (Andrew Jones)
+              "operator",    # ........... 10
+              "comments",    # ........... 11
              )
     
     count = 0
@@ -171,9 +172,9 @@ def process2(fh, results, debug=False, logfile=sys.stderr):
         elif field == 'wavelength':
             val = parts.get_uint(fh, 2)
             xstr = "%d nm" % val
-        elif field == "(unknown 2)":
-            val = parts.get_uint(fh, 8)
-            xstr = "VALUE %ld" % (val)
+        elif field == "user offset" or field == "user offset distance":
+            val = parts.get_signed(fh, 4)
+            xstr = "%d" % val
         else:
             xstr = parts.get_string(fh)
         

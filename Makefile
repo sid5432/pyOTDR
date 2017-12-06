@@ -8,7 +8,8 @@ docker:
 	docker build . -t sidneyli/pyotdr:latest
 	
 docker-run:
-	docker run -ti -v /home/sid/:/data sidneyli/pyotdr:latest /bin/bash
+	echo "NOTE: not checking of docker image exists already"
+	docker run -ti --rm -v /home/sid/:/data sidneyli/pyotdr:latest /bin/bash
 
 test:
 	pytest

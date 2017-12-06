@@ -3,3 +3,12 @@ clean:
 
 realclean: clean
 	rm -rf *.json *.xml *.pyc test/*.pyc test/__pycache__ .cache test/.cache
+
+docker:
+	docker build . -t sidneyli/pyotdr:latest
+	
+docker-run:
+	docker run -ti -v /home/sid/:/data sidneyli/pyotdr:latest /bin/bash
+
+test:
+	pytest

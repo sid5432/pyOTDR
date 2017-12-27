@@ -13,29 +13,32 @@
                 "min before offset": 15.829,
                 "num data points": 11776,
                 "num data points 2": 11776,
-                "scaling factor": 1.0,
-                "unknown": 1
+                "num traces": 1,
+                "scaling factor": 1.0
         },
         "FxdParams": {
                 "BC": "-81.50 dB",
                 "EOT thr": "5.000 dB",
+                "acquisition offset": 0,
                 "date/time": "Thu Feb 05 03:46:14 1998 (886668374 sec)",
+                "front panel offset": 0,
                 "index": "1.471100",
                 "loss thr": "0.000 dB",
+                "noise floor level": 52058,
+                "noise floor scaling factor": 1000,
                 "num averages": 30,
                 "num data points": 11776,
+                "number of pulse width entries": 1,
+                "power offset first point": 0,
                 "pulse width": "1000 ns",
                 "range": 59.99514943351243,
                 "refl thr": "-0.000 dB",
                 "resolution": 5.094696792927346,
                 "sample spacing": "0.02499999 usec",
                 "unit": "mt (meters)",
-                "unknown 1": "00 00 00 00 01 00 ",
-                "unknown 2": "00 00 00 00 5A CB E8 03 00 00 ",
                 "wavelength": "1310.0 nm"
         },
         "GenParams": {
-                "(unknown 2)": "VALUE 0",
                 "build condition": "CC (as-current)",
                 "cable ID": "K1 AB",
                 "cable code/fiber type": " ",
@@ -45,6 +48,7 @@
                 "location A": " ",
                 "location B": " ",
                 "operator": "HP ",
+                "user offset": "0",
                 "wavelength": "1310 nm"
         },
         "KeyEvents": {

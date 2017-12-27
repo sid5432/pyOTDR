@@ -82,10 +82,14 @@ def _process_data(fh, results, tracedata, debug=False, logfile=sys.stderr, dumpt
     if debug:
         print("%s num data points = %d" % (sep,N), file=logfile)
     
-    val = parts.get_uint(fh, 2)
-    xref['unknown'] = val
+    val = parts.get_signed(fh, 2)
+    xref['num traces'] = val
     if debug:
-        print("%s unknown #1 = %d" % (sep,val), file=logfile)
+        print("%s number of traces = %d" % (sep,val), file=logfile)
+    
+    if val > 1:
+        print("WARNING!!!: Cannot handle multiple traces (%d); aborting" % val)
+        sys.exit()
     
     val = parts.get_uint(fh, 4)
     xref['num data points 2'] = val

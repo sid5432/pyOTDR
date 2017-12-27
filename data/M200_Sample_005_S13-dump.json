@@ -13,29 +13,32 @@
                 "min before offset": 0.535,
                 "num data points": 16000,
                 "num data points 2": 16000,
-                "scaling factor": 1.0,
-                "unknown": 1
+                "num traces": 1,
+                "scaling factor": 1.0
         },
         "FxdParams": {
                 "BC": "-77.00 dB",
                 "EOT thr": "6.000 dB",
+                "acquisition offset": 0,
                 "date/time": "Sat Jun 17 06:01:11 2006 (1150538471 sec)",
+                "front panel offset": 0,
                 "index": "1.467700",
                 "loss thr": "0.050 dB",
+                "noise floor level": 65535,
+                "noise floor scaling factor": 0,
                 "num averages": 6656,
                 "num data points": 16000,
+                "number of pulse width entries": 1,
+                "power offset first point": 0,
                 "pulse width": "100 ns",
                 "range": 8.17040152619745,
                 "refl thr": "-65.000 dB",
                 "resolution": 0.5106500953873406,
                 "sample spacing": "0.0025 usec",
                 "unit": "mt (meters)",
-                "unknown 1": "00 00 00 00 01 00 ",
-                "unknown 2": "00 00 00 00 FF FF 00 00 00 00 ",
                 "wavelength": "131.0 nm"
         },
         "GenParams": {
-                "(unknown 2)": "VALUE 7475",
                 "build condition": "BC (as-built)",
                 "cable ID": "M200_DEMO_D",
                 "cable code/fiber type": " ",
@@ -45,6 +48,7 @@
                 "location A": "Conant",
                 "location B": "Morrill",
                 "operator": "SUZY",
+                "user offset": "7475",
                 "wavelength": "1310 nm"
         },
         "KeyEvents": {

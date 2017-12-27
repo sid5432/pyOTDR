@@ -68,12 +68,33 @@ This program require python 2. to install dependency :
 
 ### Docker
 
-A docker file is provided to help you test this program. 
+A docker file (*Dockerfile*) is provided to help you test this program. In the top level directory, type the command
 
-     docker build -t test-pyotdr .
-     docker run test-pyotdr data/demo_ab.sor
+	Make docker-build
+    
+or type the command 
 
+	docker build . -t sidneyli/pyotdr:latest
 
-(*Last Revised 2017-11-20*)
+to build the docker image. It will take a while to download the base image and compile. If 
+all goes well, it should successfully build a new docker image *sidneyli/pyotdr:latest*.
+You can check with the command:
+
+	docker images
+    
+once the build is completed. You can now run the command
+
+	Make docker-run
+    
+or type the docker command:
+
+	docker run -ti --rm -v $HOME:/data sidneyli/pyotdr:latest /bin/bash
+
+to spin up an instance of the docker image. This will start a command shell for you to run the *pyOTDR.py* program.  The docker command
+above will mount your home directory to the */data* folder inside the docker instance.  The
+command pyOTDR.py (installed as */pyOTDR/pyOTDR.py*) will be in your execution path.
+The docker instance removes itself when you exit the instance.
+
+(*Last Revised 2017-12-27*)
 
 

@@ -51,20 +51,21 @@ risk! You have been warned!**
 The program was ported over from my original [pubOTDR](https://github.com/sid5432/pubOTDR)
 written in Perl.  To parse an OTDR SOR file, run the program as
 
-<code>% pyOTDR.py myfile.sor</code>
+    pyOTDR.py myfile.sor
 
 where "mfile.sor" is the name (path) to your SOR file.  A OTDR trace file "myfile-trace.dat" and a JSON file "myfile-dump.json" will be produced.  You can also output the results as an XML file "myfile-dump.xml" with:
 
-<code>% pyOTDR.py myfile.sor XML</code>
+    pyOTDR.py myfile.sor XML
 
 There is also a Clojure version, [cljotdr](https://github.com/sid5432/cljotdr); this will be of interest to people looking for a Java version, since Clojure runs on top of a Java Virtual Machine (JVM).
 
 
 ## Install
 
-This program require python 2. to install dependency :
+This program requires python 2 or python 3. To install dependencies, run
 
     pip install -r requirement.txt
+
 
 ### Docker
 

@@ -71,7 +71,7 @@ This program requires python 2 or python 3. To install dependencies, run
 
 A docker file (*Dockerfile*) is provided to help you test this program. In the top level directory, type the command
 
-	Make docker-build
+	make docker-build
     
 or type the command 
 
@@ -96,6 +96,6 @@ above will mount your home directory to the */data* folder inside the docker ins
 command pyOTDR.py (installed as */pyOTDR/pyOTDR.py*) will be in your execution path.
 The docker instance removes itself when you exit the instance.
 
-(*Last Revised 2017-12-27*)
+(*Last Revised 2018-01-10*)
 
 

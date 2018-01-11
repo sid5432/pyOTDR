@@ -54,7 +54,9 @@ def _process_keyevents(fh, format, results, debug=False, logfile=sys.stderr):
     
     # number of events
     nev = parts.get_uint(fh, 2)
-    print("%s %d events" % (sep, nev), file=logfile)
+    if debug:
+        print("%s %d events" % (sep, nev), file=logfile)
+    
     xref['num events'] = nev
     
     factor = 1e-4 * parts.sol / float(results['FxdParams']['index'])

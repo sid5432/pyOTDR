@@ -38,7 +38,7 @@ def process(fh, results, debug=False, logfile=sys.stderr):
     xref = results[bname]
     
     # version 1 and 2 are the same
-    status = process_genparam(fh, results, debug=debug, logfile=logfile)
+    status = process_supparam(fh, results, debug=debug, logfile=logfile)
     
     # read the rest of the block (just in case)
     endpos = results['blocks'][bname]['pos'] + results['blocks'][bname]['size']
@@ -47,7 +47,7 @@ def process(fh, results, debug=False, logfile=sys.stderr):
     return status
 
 # ================================================================
-def process_genparam(fh, results, debug=False, logfile=sys.stderr):
+def process_supparam(fh, results, debug=False, logfile=sys.stderr):
     """ process SupParams fields """
     bname = "SupParams"
     xref  = results[bname]

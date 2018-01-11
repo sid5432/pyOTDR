@@ -136,7 +136,7 @@ def _process_data(fh, results, tracedata, debug=False, logfile=sys.stderr, dumpt
     
     for i in range(N):
         # more work but (maybe) less rounding issues
-        x = dx*i*xscaling / 1000.0 # output in kkm
+        x = dx*i*xscaling / 1000.0 # output in km
         tracedata.append( "%f\t%f" % (x, nlist[i]) )
     
     # .........................................

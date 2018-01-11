@@ -14,3 +14,9 @@ docker-run:
 testall:
 	echo "run tests in test/"
 	pytest
+
+test1:
+	./pyOTDR.py data/demo_ab.sor
+
+test2:
+	./pyOTDR.py data/sample1310_lowDR.sor

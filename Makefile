@@ -5,10 +5,16 @@ realclean: clean
 	rm -rf *.json *.xml *.pyc test/*.pyc */__pycache__ __pycache__ .cache tests/.cache
 	rm -rf build dist pyOTDR.egg-info
 
-build:
+build: realclean
 	python setup.py build
+	
+dist: build
+	python setup.py sdist bdist_wheel
 
-install:
+upload: dist
+	twine upload dist/*
+
+install: build
 	python setup.py install
 
 docker-build:

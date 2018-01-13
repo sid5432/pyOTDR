@@ -61,10 +61,12 @@ You can also output the results as an XML file “myfile-dump.xml” with:
 
     pyOTDR.py myfile.sor XML
 
-There is also a Clojure version,
-`cljotdr <https://github.com/sid5432/cljotdr>`__; this will be of
-interest to people looking for a Java version, since Clojure runs on top
-of a Java Virtual Machine (JVM).
+There is also a Ruby version
+(`rbOTDR <https://github.com/sid5432/rbOTDR>`__), a javascript/node
+version(\ `jsOTDR <https://github.com/sid5432/jsOTDR>`__), and a Clojure
+version (`cljotdr <https://github.com/sid5432/cljotdr>`__); the Clojure
+version may be of interest to people looking for a Java version, since
+Clojure runs on top of a Java Virtual Machine (JVM).
 
 Install
 -------
@@ -75,11 +77,27 @@ This program requires python 2 or python 3. To install dependencies, run
 
     pip install -r requirement.txt
 
+I recently reorganized the whole package to submit to PyPI (Python
+Package Index). You should now be able to install the whole thing with
+
+::
+
+    pip install pyOTDR
+
+This should create an executable called **pyOTDR** that is ready to use.
+
 Docker
 ~~~~~~
 
-A docker file (*Dockerfile*) is provided to help you test this program.
-In the top level directory, type the command
+There is a docker image that you can download with the command
+
+::
+
+    docker pull sidneyli/pyotdr:latest
+
+If you would like to build the docker image yourself, a docker file
+(*Dockerfile*) is provided to help you test this program. In the top
+level directory, type the command
 
 ::
 
@@ -103,7 +121,7 @@ once the build is completed. You can now run the command
 
 ::
 
-    Make docker-run
+    make docker-run
 
 or type the docker command:
 
@@ -118,4 +136,4 @@ instance. The command pyOTDR.py (installed as */pyOTDR/pyOTDR.py*) will
 be in your execution path. The docker instance removes itself when you
 exit the instance.
 
-(*Last Revised 2018-01-10*)
+(*Last Revised 2018-01-12*)

@@ -65,7 +65,7 @@ setup(
       #   py_modules=["my_module"],
       #
       # packages=find_packages(exclude=['contrib', 'docs', 'tests']),  # Required
-      packages=find_packages(),
+      packages=find_packages(exclude=['archive']),
       
       install_requires=['utils','crcmod','lazyxml'],
       
@@ -74,9 +74,11 @@ setup(
                       'test': ['pytest'],
                      },
       
-      # package_data={  # Optional
-      #    'sample': ['package_data.dat'],
-      # },
+      include_package_data=True,
+      
+      package_data={
+                    'data': ['*sor'],
+                   },
       
       # data_files=[('my_data', ['data/data_file'])],  # Optional
       
@@ -89,7 +91,7 @@ setup(
       # executes the function `main` from this package when invoked:
       entry_points={  # Optional
                     'console_scripts': [
-                                        'sample=sample:main',
+                                        'pyOTDR=pyOTDR:main',
                                        ],
                    },
      )

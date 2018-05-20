@@ -1,11 +1,14 @@
 #!/usr/bin/python
 from __future__ import absolute_import, print_function, unicode_literals
 import sys
+import logging
 from . import parts
+
+logger = logging.getLogger('pyOTDR')
 
 sep = "    :"
 
-def process(fh, results, debug=False, logfile=sys.stderr):
+def process(fh, results):
     """
     fh: file handle;
     results: dict for results;
@@ -23,7 +26,7 @@ def process(fh, results, debug=False, logfile=sys.stderr):
         startpos = ref['pos']
         fh.seek( startpos )
     except:
-        print(pname," ",bname,"block starting position unknown", file=logfile)
+        logger.debug('{} {} block starting position unknown'.format(pname, bname))
         return status
     
     format = results['format']
@@ -31,14 +34,14 @@ def process(fh, results, debug=False, logfile=sys.stderr):
     if format == 2:
         mystr = fh.read(hsize).decode('ascii')
         if mystr != bname+'\0':
-            print(pname," incorrect header ",mystr, file=logfile)
+            logger.('{}  incorrect header {}'.format(pname, mystr)
             return status
     
     results[bname] = dict()
     xref = results[bname]
     
     # version 1 and 2 are the same
-    status = process_supparam(fh, results, debug=debug, logfile=logfile)
+    status = process_supparam(fh, results)
     
     # read the rest of the block (just in case)
     endpos = results['blocks'][bname]['pos'] + results['blocks'][bname]['size']
@@ -47,7 +50,7 @@ def process(fh, results, debug=False, logfile=sys.stderr):
     return status
 
 # ================================================================
-def process_supparam(fh, results, debug=False, logfile=sys.stderr):
+def process_supparam(fh, results):
     """ process SupParams fields """
     bname = "SupParams"
     xref  = results[bname]
@@ -65,8 +68,7 @@ def process_supparam(fh, results, debug=False, logfile=sys.stderr):
     count = 0
     for field in fields:
         xstr = parts.get_string(fh)
-        if debug:
-            print("%s %d. %s: %s" % (sep, count, field, xstr), file=logfile)
+        logger.debug("{} {}. {}: {}".format(sep, count, field, xstr))
         
         xref[field] = xstr
         count += 1

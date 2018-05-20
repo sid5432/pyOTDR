@@ -1,11 +1,14 @@
 #!/usr/bin/python
 from __future__ import absolute_import, print_function, unicode_literals
 import sys
+import logging
 from . import parts
+
+logger = logging.getLogger('pyOTDR')
 
 sep = "    :"
 
-def process(fh, results, debug=False, logfile=sys.stderr):
+def process(fh, results):
     """
     fh: file handle;
     results: dict for results;
@@ -23,7 +26,7 @@ def process(fh, results, debug=False, logfile=sys.stderr):
         startpos = ref['pos']
         fh.seek( startpos )
     except:
-        print(pname," ",bname,"block starting position unknown", file=logfile)
+        logger.error('{} {} block starting position unknown'.format(pname, bname))
         return status
     
     format = results['format']
@@ -31,7 +34,7 @@ def process(fh, results, debug=False, logfile=sys.stderr):
     if format == 2:
         mystr = fh.read(hsize)
         if mystr != bname+'\0':
-            print(pname," incorrect header ",mystr, file=logfile)
+            logger.error('{}  incorrect header {} '.format(pname, mystr))
             return status
     
     results[bname] = dict()

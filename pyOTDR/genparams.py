@@ -1,11 +1,14 @@
 #!/usr/bin/python
 from __future__ import absolute_import, print_function, unicode_literals
 import sys
+import logging
 from . import parts
+
+logger = logging.getLogger('pyOTDR')
 
 sep = "    :"
 
-def process(fh, results, debug=False, logfile=sys.stderr):
+def process(fh, results): 
     """
     fh: file handle;
     results: dict for results;
@@ -23,7 +26,7 @@ def process(fh, results, debug=False, logfile=sys.stderr):
         startpos = ref['pos']
         fh.seek( startpos )
     except:
-        print(pname," ",bname,"block starting position unknown", file=logfile)
+        logger.error('{} {} block starting position unknown'.format(pname, bname)
         return status
     
     format = results['format']
@@ -31,16 +34,16 @@ def process(fh, results, debug=False, logfile=sys.stderr):
     if format == 2:
         mystr = fh.read(hsize).decode('ascii')
         if mystr != bname+'\0':
-            print(pname," incorrect header '",mystr,"' vs '",bname,"'", file=logfile)
+            logger.error('{} incorrect header {} vs "{}"'.format(pname,mystr,bname))
             return status
     
     results[bname] = dict()
     xref = results[bname]
     
     if format == 1:
-        status = process1(fh, results, debug=debug, logfile=logfile)
+        status = process1(fh, results) 
     else:
-        status= process2(fh, results, debug=debug, logfile=logfile)
+        status= process2(fh, results)
     
     # read the rest of the block (just in case)
     endpos = results['blocks'][bname]['pos'] + results['blocks'][bname]['size']
@@ -81,21 +84,20 @@ def fiber_type(val):
         fstr = "G.654 (1550nm loss-minimzed fiber)"
     elif val == 655:
         fstr = "G.655 (nonzero dispersion-shifted fiber)"
-    else:
+    else: # TODO add G657
         fstr = "%d (unknown)" % val
     
     return fstr
 
 # ================================================================
-def process1(fh, results, debug=False, logfile=sys.stderr):
+def process1(fh, results) 
     """ process version 1 format """
     bname = "GenParams"
     xref  = results[bname]
     
     lang = fh.read(2).decode('ascii')
     xref['language'] = lang
-    if debug:
-        print("%s  language: '%s', next pos %d" % (sep, lang, fh.tell()), file=logfile)
+    logger.debug("{} language '{}', next pos {}".format(sep, lang, fh.tell()))
     
     fields = (
               "cable ID",    # ........... 0
@@ -124,8 +126,7 @@ def process1(fh, results, debug=False, logfile=sys.stderr):
         else:
             xstr = parts.get_string(fh)
         
-        if debug:
-            print("%s %d. %s: %s" % (sep, count, field, xstr), file=logfile)
+        logger.debug("{}  {}. {}: {}".format(sep, count, field, xstr))
         
         xref[field] = xstr
         count += 1
@@ -135,15 +136,14 @@ def process1(fh, results, debug=False, logfile=sys.stderr):
     return status
 
 # ================================================================
-def process2(fh, results, debug=False, logfile=sys.stderr):
+def process2(fh, results) 
     """ process version 2 format """
     bname = "GenParams"
     xref  = results[bname]
     
     lang = fh.read(2).decode('ascii')
     xref['language'] = lang
-    if debug:
-        print("%s  language: '%s', next pos %d" % (sep, lang, fh.tell()), file=logfile)
+    logger.debug("{}  language: '{}', next pos {}".format(sep, lang, fh.tell()))
     
     fields = (
               "cable ID",    # ........... 0
@@ -178,8 +178,7 @@ def process2(fh, results, debug=False, logfile=sys.stderr):
         else:
             xstr = parts.get_string(fh)
         
-        if debug:
-            print("%s %d. %s: %s" % (sep, count, field, xstr), file=logfile)
+        logger.debug("{} {}. {}: {}".format(sep, count, field, xstr))
         
         xref[field] = xstr
         count += 1

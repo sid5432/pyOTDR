@@ -1,10 +1,13 @@
 #!/usr/bin/python
 from __future__ import absolute_import, print_function, unicode_literals
 import sys
+import logging
 import crcmod
 from . import parts
 
-def process(fh, results, debug=False, logfile=sys.stderr):
+logger = logger.getLogger('pyOTDR')
+
+def process(fh, results, debug=False):
     """
     fh: file handle;
     results: dict for results;
@@ -23,7 +26,7 @@ def process(fh, results, debug=False, logfile=sys.stderr):
         startpos = ref['pos']
         fh.seek( startpos )
     except:
-        print(pname," ",bname,"block starting position unknown", file=logfile)
+        logger.error('{} {} block starting position unknown '.format(pname bname))
         return status
     
     format = results['format']
@@ -31,7 +34,7 @@ def process(fh, results, debug=False, logfile=sys.stderr):
     if format == 2:
         mystr = fh.read(hsize).decode('ascii')
         if mystr != bname+'\0':
-            print(pname," incorrect header ", mystr, file=logfile)  
+            logger.error('{} incorrect header {}'.format(pname, mystr))
             return status
     
     results[bname] = dict()
@@ -49,9 +52,9 @@ def process(fh, results, debug=False, logfile=sys.stderr):
         verdict = "DOES NOT MATCH!"
     
 
-    if debug:
-        print("%s checksum from file %d (0x%X)" % (sep, csum, csum), file=logfile)  
-        print("%s checksum calculated %d (0x%X) %s" % (sep, digest, digest, verdict), file=logfile)
+    
+    logger.debug("%s checksum from file %d (0x%X)" % (sep, csum, csum))
+    logger.debug("%s checksum calculated %d (0x%X) %s" % (sep, digest, digest, verdict))
     
     status = 'ok'
     return status

@@ -2,7 +2,10 @@
 from __future__ import absolute_import, print_function, unicode_literals
 import sys
 import datetime
+import logging
 from . import parts
+
+logger = logginf.getLogger('pyOTDR')
 
 sep = "    :"
 unit_map = {
@@ -19,7 +22,7 @@ tracetype = {
              'RF': "[reference]",
             }
 
-def process(fh, results, debug=False, logfile=sys.stderr):
+def process(fh, results):
     """
     fh: file handle;
     results: dict for results;
@@ -37,7 +40,7 @@ def process(fh, results, debug=False, logfile=sys.stderr):
         startpos = ref['pos']
         fh.seek( startpos )
     except:
-        print(pname," ",bname,"block starting position unknown", file=logfile)
+        logger.error('{} {} block starting position unknown'.format(pname, bname))
         return status
     
     format = results['format']
@@ -45,7 +48,7 @@ def process(fh, results, debug=False, logfile=sys.stderr):
     if format == 2:
         mystr = fh.read(hsize).decode('ascii')
         if mystr != bname+'\0':
-            print(pname," incorrect header ",mystr, file=logfile)
+            logger.error('{}  incorrect header {}'.format(pname, mystr))
             return status
     
     results[bname] = dict()
@@ -124,7 +127,7 @@ def process(fh, results, debug=False, logfile=sys.stderr):
                  ["Y2",78,4,'i','','',''], # ............. 78-81
                 )
     
-    status= _process_fields(fh, plist, results, debug=debug, logfile=logfile)
+    status = _process_fields(fh, plist, results)
     
     # read the rest of the block (just in case)
     endpos = results['blocks'][bname]['pos'] + results['blocks'][bname]['size']
@@ -133,7 +136,7 @@ def process(fh, results, debug=False, logfile=sys.stderr):
     return status
 
 # ================================================================
-def _process_fields(fh, plist, results, debug=False, logfile=sys.stderr):
+def _process_fields(fh, plist, results)
     bname = "FxdParams"
     xref  = results[bname]
     
@@ -187,14 +190,14 @@ def _process_fields(fh, plist, results, debug=False, logfile=sys.stderr):
                 pass
         
         # don't bother even trying if there are multiple pulse width entries; too lazy
-        # to restructure code to handle this case
+        # TODO  restructure code to handle this case
         if name == 'number of pulse width entries' and val > 1:
-            print("WARNING!!!: Cannot handle multiple pulse width entries (%d); aborting" % val)
+            logger.warning('Cannot handle multiple pulse width entries ({}); aborting'.format(val))
+            # TODO should raise an exception instead of brutaly exit
             sys.exit()
                     
         # .................................
-        if debug:
-            print("%s %d. %s: %s %s" % (sep, count, name, xstr, unit), file=logfile)
+        logger.debug("%s %d. %s: %s %s" % (sep, count, name, xstr, unit)) 
         
         xref[name] = xstr if unit=="" else str(xstr)+" "+unit
         count += 1
@@ -205,11 +208,10 @@ def _process_fields(fh, plist, results, debug=False, logfile=sys.stderr):
     dx  = float( ss ) * parts.sol / ior
     xref['range'] = dx * int(xref['num data points'])
     xref['resolution'] = dx * 1000.0 # in meters
-    if debug:
-        print("", file=logfile)
-        print("%s [adjusted for refractive index]" % (sep), file=logfile)
-        print("%s resolution = %.14f m" % (sep,xref['resolution']), file=logfile)
-        print("%s range      = %.13f km" % (sep,xref['range']), file=logfile)
+
+    logger.debug("%s [adjusted for refractive index]" % (sep)) 
+    logger.debug("%s resolution = %.14f m" % (sep,xref['resolution']))
+    logger.debug("%s range      = %.13f km" % (sep,xref['range']))
 
     status = 'ok'
     

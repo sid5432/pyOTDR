@@ -24,7 +24,7 @@ def main():
     
     logfile = sys.stdout
     
-    status, results, tracedata = pyOTDR.sorparse(filename, debug=True, logfile=logfile)
+    status, results, tracedata = pyOTDR.sorparse(filename) 
     
     # construct data file name to dump results
     fn_strip, ext = os.path.splitext( os.path.basename(filename) )
@@ -42,9 +42,7 @@ def main():
     
     with open(opfile,"w") as output:
         for xy in tracedata:
-            print(xy, file=output)
-    
-    sys.exit()
+            output.write(xy)
 
 # ==============================================
 if __name__ == '__main__':

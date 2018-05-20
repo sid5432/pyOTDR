@@ -6,7 +6,6 @@ import lazyxml
 from . import parts
 
 def replace_keys(results):
-    
     newresults = {}
     for key in results.keys():
         newkey = reduce( lambda x,y: x.replace(y,'_'), [' ','/','(',')'], key )
@@ -23,13 +22,11 @@ def tofile(results, logfile, format='JSON'):
     """
     
     if format == 'JSON':
-        print(json.dumps(results, sort_keys=True, indent=8, separators=(',',': ')), file=logfile)
+        json.dumps(results, logfile, sort_keys=True, indent=8, separators=(',',': '))
     else:
         newresults = replace_keys(results)
-        xmlstring = lazyxml.dumps(newresults, indent=' '*4, cdata=False, root='sor')
-        print(xmlstring, file=logfile)
+        xmlstring = lazyxml.dump(newresults,logfile, indent=' '*4, cdata=False, root='sor')
         
         # sanity check; should run without problems
         # lazyxml.loads(xmlstring)
-    
-    return
+

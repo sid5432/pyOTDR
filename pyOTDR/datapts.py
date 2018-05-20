@@ -3,11 +3,14 @@ from __future__ import absolute_import, print_function, unicode_literals
 import sys
 import os
 import functools
+import logging
 from . import parts
 
 sep = "    :"
 
-def process(fh, results, tracedata, debug=False, logfile=sys.stderr):
+logger = logging.getLogger('pyOTDR')
+
+def process(fh, results, tracedata):
     """
     fh: file handle;
     results: dict for results;
@@ -25,7 +28,7 @@ def process(fh, results, tracedata, debug=False, logfile=sys.stderr):
         startpos = ref['pos']
         fh.seek( startpos )
     except:
-        print(pname, " ", bname, "block starting position unknown", file=logfile)
+        logger.error('{} {} block starting position unknown'.format(pname, bname))
         return status
     
     format = results['format']
@@ -33,7 +36,7 @@ def process(fh, results, tracedata, debug=False, logfile=sys.stderr):
     if format == 2:
         mystr = fh.read(hsize).decode('ascii')
         if mystr != bname+'\0':
-            print(pname, " incorrect header ", mystr, file=logfile)
+            logger.error('{}  incorrect header {}'.format(pname, mystr))
             return status
     
     results[bname] = dict()
@@ -44,7 +47,7 @@ def process(fh, results, tracedata, debug=False, logfile=sys.stderr):
     # method used by STV: minimum reading shifted to zero
     # method used by AFL/Noyes Trace.Net: maximum reading shifted to zero (approx)
     
-    status = _process_data(fh, results, tracedata, debug=debug, logfile=logfile)
+    status = _process_data(fh, results, tracedata)
     
     # read the rest of the block (just in case)
     endpos = results['blocks'][bname]['pos'] + results['blocks'][bname]['size']
@@ -53,7 +56,7 @@ def process(fh, results, tracedata, debug=False, logfile=sys.stderr):
     return status
 
 # ================================================================
-def _process_data(fh, results, tracedata, debug=False, logfile=sys.stderr, dumptrace=True):
+def _process_data(fh, results, tracedata, dumptrace=True):
     """ process version 1 format """
     bname = "DataPts"
     xref  = results[bname]
@@ -69,38 +72,32 @@ def _process_data(fh, results, tracedata, debug=False, logfile=sys.stderr, dumpt
     if model == 'OFL250':
         xref['_datapts_params']['xscaling'] = 0.1
     
-    if debug:
-        print("%s [initial 12 byte header follows]" % sep, file=logfile)
+    logger.debug(("{} [initial 12 byte header follows]".format(sep))
     
     N = parts.get_uint(fh, 4)
     # confirm N equal to FxdParams num data points
     if N != results['FxdParams']['num data points']:
-        print("!!! WARNING !!! block says number of data points ",\
-        "is ",N," instead of ",results['FxdParams']['num data points'])
+        logger.warning("block says number of data points is {} instead of {}".format(N, results['FxdParams']['num data points'])
     
     xref['num data points'] = N
-    if debug:
-        print("%s num data points = %d" % (sep,N), file=logfile)
+    logger.debug("{} num data points = {}" .format(sep,N))
     
     val = parts.get_signed(fh, 2)
     xref['num traces'] = val
-    if debug:
-        print("%s number of traces = %d" % (sep,val), file=logfile)
+    logger.debug('{} number of traces = {}'.format(sep,val))
     
     if val > 1:
-        print("WARNING!!!: Cannot handle multiple traces (%d); aborting" % val)
+        logger.warning("Cannot handle multiple traces ({}); aborting".format(val))
         sys.exit()
     
     val = parts.get_uint(fh, 4)
     xref['num data points 2'] = val
-    if debug:
-        print("%s num data points again = %d" % (sep,val), file=logfile)
+    logger.debug("{} num data points again = {}".format(sep,val))
 
     val = parts.get_uint(fh, 2)
     scaling_factor = val / 1000.0
     xref['scaling factor'] = scaling_factor
-    if debug:
-        print("%s scaling factor = %f" % (sep,scaling_factor), file=logfile)
+    logger.debug(("{} scaling factor = {}".format(sep,scaling_factor))
     
     # .....................................
     # adjusted resolution
@@ -118,8 +115,7 @@ def _process_data(fh, results, tracedata, debug=False, logfile=sys.stderr, dumpt
     xref['max before offset'] = float(disp_max)
     xref['min before offset'] = float(disp_min)
     
-    if debug:
-        print("%s before applying offset: max %s dB, min %s dB" % (sep, disp_max, disp_min), file=logfile)
+    logger.debug("{} before applying offset: max {} dB, min {} dB".format(sep, disp_max, disp_min))
     
     # .........................................
     # save to file

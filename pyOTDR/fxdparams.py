@@ -5,7 +5,7 @@ import datetime
 import logging
 from . import parts
 
-logger = logginf.getLogger('pyOTDR')
+logger = logging.getLogger('pyOTDR')
 
 sep = "    :"
 unit_map = {
@@ -136,7 +136,7 @@ def process(fh, results):
     return status
 
 # ================================================================
-def _process_fields(fh, plist, results)
+def _process_fields(fh, plist, results):
     bname = "FxdParams"
     xref  = results[bname]
     

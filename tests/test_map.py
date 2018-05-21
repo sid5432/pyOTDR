@@ -15,9 +15,8 @@ def test_map():
     fh = parts.sorfile(filename)
     assert fh != None
     fh.close()
-    
-    devnull = open( os.devnull, "w")
-    status, results, trace = pyOTDR.sorparse(filename, debug=True, logfile=devnull)
+
+    status, results, trace = pyOTDR.sorparse(filename)
     
     assert status == 'ok'
     

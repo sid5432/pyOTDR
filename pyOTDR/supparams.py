@@ -1,6 +1,5 @@
 #!/usr/bin/python
 from __future__ import absolute_import, print_function, unicode_literals
-import sys
 import logging
 from . import parts
 
@@ -34,12 +33,11 @@ def process(fh, results):
     if format == 2:
         mystr = fh.read(hsize).decode('ascii')
         if mystr != bname+'\0':
-            logger.('{}  incorrect header {}'.format(pname, mystr)
+            logger.error('{} incorrect header {}'.format(pname, mystr))
             return status
     
     results[bname] = dict()
-    xref = results[bname]
-    
+
     # version 1 and 2 are the same
     status = process_supparam(fh, results)
     

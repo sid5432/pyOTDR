@@ -1,11 +1,10 @@
 #!/usr/bin/python
 from __future__ import absolute_import, print_function, unicode_literals
-import sys
 import re
 import logging
 from . import parts
 
-logger = loggign.getLogger('pyOTDR')
+logger = logging.getLogger('pyOTDR')
 
 sep = "    :"
 

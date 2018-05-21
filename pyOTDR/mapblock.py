@@ -63,7 +63,7 @@ def process(fh, results):
         startpos += bsize
     
     logger.debug(parts.divider)
-    logger.debug("MAIN: next position {:#X}".format(fh.tell())
+    logger.debug("MAIN: next position {:#X}".format(fh.tell()))
     logger.debug(parts.divider)
 
     status = 'ok'

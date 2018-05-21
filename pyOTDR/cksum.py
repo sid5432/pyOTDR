@@ -5,7 +5,7 @@ import logging
 import crcmod
 from . import parts
 
-logger = logger.getLogger('pyOTDR')
+logger = logging.getLogger('pyOTDR')
 
 def process(fh, results, debug=False):
     """
@@ -17,7 +17,6 @@ def process(fh, results, debug=False):
     bname = "Cksum"
     hsize = len(bname) + 1 # include trailing '\0'
     pname = "Cksum.process():"
-    ref = None
     sep = "    :"
     status = 'nok'
     
@@ -26,7 +25,7 @@ def process(fh, results, debug=False):
         startpos = ref['pos']
         fh.seek( startpos )
     except:
-        logger.error('{} {} block starting position unknown '.format(pname bname))
+        logger.error('{} {} block starting position unknown '.format(pname, bname))
         return status
     
     format = results['format']
@@ -50,12 +49,9 @@ def process(fh, results, debug=False):
     else:
         xref['match'] = False
         verdict = "DOES NOT MATCH!"
-    
 
-    
     logger.debug("%s checksum from file %d (0x%X)" % (sep, csum, csum))
     logger.debug("%s checksum calculated %d (0x%X) %s" % (sep, digest, digest, verdict))
     
     status = 'ok'
     return status
-

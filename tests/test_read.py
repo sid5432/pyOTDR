@@ -27,9 +27,8 @@ def _compare_(sor_filename):
     fh = parts.sorfile(filename)
     assert fh != None
     fh.close()
-    
-    devnull = open( os.devnull, "w")
-    status, results, tracedata = pyOTDR.sorparse(filename, debug=True, logfile=devnull)
+
+    status, results, tracedata = pyOTDR.sorparse(filename)
     
     assert status == 'ok'
     

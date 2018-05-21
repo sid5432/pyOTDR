@@ -10,7 +10,7 @@ logger = logging.getLogger('pyOTDR')
 divider = "--------------------------------------------------------------------------------"
 
 # speed of light
-sol = 299792.458/1.0e6; # = 0.299792458 km/usec
+sol = 299792.458/1.0e6 # = 0.299792458 km/usec
 
 # -----------------------------------------------------
 def sorfile(filename):
@@ -189,7 +189,7 @@ def slurp(fh, bname, results):
         fh.seek( startpos )
     except:
         # TODO this should raise
-        logger.errort('{} {} block starting position unknown'.format(pname,bname)
+        logger.error('{} block starting position unknown'.format(bname))
         return status
     
     nn = ref['size']

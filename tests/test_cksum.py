@@ -54,7 +54,7 @@ def test_cksum():
     
     devnull = open( os.devnull, "w")
     # test against module (SOR version 1)
-    status, results, tracedata = pyOTDR.sorparse(filename, debug=True, logfile=devnull)
+    status, results, tracedata = pyOTDR.sorparse(filename)
     # print(results)
     # print "* Our calcuated check sum: ",digest
     assert results['Cksum']['checksum_ours'] == digest
@@ -63,7 +63,7 @@ def test_cksum():
     
     # SOR version 2
     filename = cdir+"/../data/sample1310_lowDR.sor"
-    status, results, tracedata = pyOTDR.sorparse(filename, debug=True, logfile=devnull)
+    status, results, tracedata = pyOTDR.sorparse(filename)
     # status, results, tracedata = pyOTDR.sorparse(filename, debug=True, logfile=sys.stderr)
 
     assert results['Cksum']['checksum_ours'] == 62998

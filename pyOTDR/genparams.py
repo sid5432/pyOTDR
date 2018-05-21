@@ -26,7 +26,7 @@ def process(fh, results):
         startpos = ref['pos']
         fh.seek( startpos )
     except:
-        logger.error('{} {} block starting position unknown'.format(pname, bname)
+        logger.error('{} {} block starting position unknown'.format(pname, bname))
         return status
     
     format = results['format']
@@ -90,7 +90,7 @@ def fiber_type(val):
     return fstr
 
 # ================================================================
-def process1(fh, results) 
+def process1(fh, results):
     """ process version 1 format """
     bname = "GenParams"
     xref  = results[bname]
@@ -136,7 +136,7 @@ def process1(fh, results)
     return status
 
 # ================================================================
-def process2(fh, results) 
+def process2(fh, results):
     """ process version 2 format """
     bname = "GenParams"
     xref  = results[bname]

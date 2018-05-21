@@ -4,12 +4,16 @@ import sys
 import os
 import re
 import json
-
+import logging
 if __name__ == '__main__':
     cdir = os.path.dirname( os.path.realpath(__file__) )
     sys.path.insert(0, cdir+"/..")
 
+
 import pyOTDR
+
+logger = logging.getLogger('pyOTDR')
+logger.setLevel(logging.DEBUG)
 
 def main():
     if len(sys.argv) < 2:
@@ -21,8 +25,6 @@ def main():
     opformat = "JSON"
     if len(sys.argv) >= 3:
         opformat = "XML" if sys.argv[2] == "XML" else "JSON"
-    
-    logfile = sys.stdout
     
     status, results, tracedata = pyOTDR.sorparse(filename) 
     

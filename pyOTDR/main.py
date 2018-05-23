@@ -4,12 +4,16 @@ import sys
 import os
 import re
 import json
-
+import logging
 if __name__ == '__main__':
     cdir = os.path.dirname( os.path.realpath(__file__) )
     sys.path.insert(0, cdir+"/..")
 
+
 import pyOTDR
+
+logger = logging.getLogger('pyOTDR')
+logger.setLevel(logging.DEBUG)
 
 def main():
     if len(sys.argv) < 2:
@@ -17,14 +21,15 @@ def main():
         print("     : format: JSON (default) or XML")
         sys.exit()
     
+    logging.basicConfig(format='%(message)s')
+    # logging.basicConfig()
+    
     filename = sys.argv[1]
     opformat = "JSON"
     if len(sys.argv) >= 3:
         opformat = "XML" if sys.argv[2] == "XML" else "JSON"
     
-    logfile = sys.stdout
-    
-    status, results, tracedata = pyOTDR.sorparse(filename, debug=True, logfile=logfile)
+    status, results, tracedata = pyOTDR.sorparse(filename) 
     
     # construct data file name to dump results
     fn_strip, ext = os.path.splitext( os.path.basename(filename) )
@@ -42,9 +47,7 @@ def main():
     
     with open(opfile,"w") as output:
         for xy in tracedata:
-            print(xy, file=output)
-    
-    sys.exit()
+            output.write(xy)
 
 # ==============================================
 if __name__ == '__main__':

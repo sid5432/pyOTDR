@@ -2,7 +2,7 @@ clean:
 	rm -f Makefile.bak *-trace.dat *~ */*~ *-dump.json
 
 realclean: clean
-	rm -rf *.json *.xml *.pyc test/*.pyc */__pycache__ __pycache__ .cache tests/.cache
+	rm -rf *.json *.xml pyOTDR/*.pyc *.pyc test/*.pyc */__pycache__ __pycache__ .cache tests/.cache
 	rm -rf build dist pyOTDR.egg-info
 
 build: realclean

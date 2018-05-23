@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sor>
+    <DataPts>
+        <max_before_offset>65.535</max_before_offset>
+        <num_data_points>11776</num_data_points>
+        <min_before_offset>15.829</min_before_offset>
+        <num_traces>1</num_traces>
+        <num_data_points_2>11776</num_data_points_2>
+        <_datapts_params>
+            <xscaling>1</xscaling>
+            <offset>STV</offset>
+        </_datapts_params>
+        <scaling_factor>1.0</scaling_factor>
+    </DataPts>
+    <GenParams>
+        <cable_code_fiber_type> </cable_code_fiber_type>
+        <language>EN</language>
+        <fiber_ID> </fiber_ID>
+        <cable_ID>K1 AB</cable_ID>
+        <comments>HP Emulation SW</comments>
+        <location_B> </location_B>
+        <location_A> </location_A>
+        <user_offset>0</user_offset>
+        <operator>HP </operator>
+        <wavelength>1310 nm</wavelength>
+        <build_condition>CC (as-current)</build_condition>
+    </GenParams>
+    <blocks>
+        <DataPts>
+            <size>23564</size>
+            <version>1.01</version>
+            <order>3</order>
+            <name>DataPts</name>
+            <pos>328</pos>
+        </DataPts>
+        <GenParams>
+            <size>44</size>
+            <version>1.01</version>
+            <order>0</order>
+            <name>GenParams</name>
+            <pos>148</pos>
+        </GenParams>
+        <FxdParams>
+            <size>54</size>
+            <version>1.01</version>
+            <order>2</order>
+            <name>FxdParams</name>
+            <pos>274</pos>
+        </FxdParams>
+        <HPEvent>
+            <size>122</size>
+            <version>2.21</version>
+            <order>5</order>
+            <name>HPEvent</name>
+            <pos>24036</pos>
+        </HPEvent>
+        <KeyEvents>
+            <size>144</size>
+            <version>1.01</version>
+            <order>4</order>
+            <name>KeyEvents</name>
+            <pos>23892</pos>
+        </KeyEvents>
+        <HPSpecialInfo>
+            <size>1506</size>
+            <version>2.22</version>
+            <order>7</order>
+            <name>HPSpecialInfo</name>
+            <pos>24200</pos>
+        </HPSpecialInfo>
+        <Cksum>
+            <size>2</size>
+            <version>1.00</version>
+            <order>8</order>
+            <name>Cksum</name>
+            <pos>25706</pos>
+        </Cksum>
+        <SupParams>
+            <size>82</size>
+            <version>1.01</version>
+            <order>1</order>
+            <name>SupParams</name>
+            <pos>192</pos>
+        </SupParams>
+        <Threshold>
+            <size>42</size>
+            <version>1.00</version>
+            <order>6</order>
+            <name>Threshold</name>
+            <pos>24158</pos>
+        </Threshold>
+    </blocks>
+    <FxdParams>
+        <index>1.471100</index>
+        <sample_spacing>0.02499999 usec</sample_spacing>
+        <acquisition_offset>0</acquisition_offset>
+        <num_data_points>11776</num_data_points>
+        <BC>-81.50 dB</BC>
+        <EOT_thr>5.000 dB</EOT_thr>
+        <resolution>5.09469679293</resolution>
+        <front_panel_offset>0</front_panel_offset>
+        <noise_floor_level>52058</noise_floor_level>
+        <number_of_pulse_width_entries>1</number_of_pulse_width_entries>
+        <power_offset_first_point>0</power_offset_first_point>
+        <range>59.9951494335</range>
+        <date_time>Thu Feb 05 03:46:14 1998 (886668374 sec)</date_time>
+        <loss_thr>0.000 dB</loss_thr>
+        <wavelength>1310.0 nm</wavelength>
+        <pulse_width>1000 ns</pulse_width>
+        <num_averages>30</num_averages>
+        <refl_thr>-0.000 dB</refl_thr>
+        <unit>mt (meters)</unit>
+        <noise_floor_scaling_factor>1000</noise_floor_scaling_factor>
+    </FxdParams>
+    <format>1</format>
+    <mapblock>
+        <nblocks>9</nblocks>
+        <nbytes>148</nbytes>
+    </mapblock>
+    <SupParams>
+        <module_S_N>DE37300051 </module_S_N>
+        <OTDR_S_N>3617G00108 </OTDR_S_N>
+        <module>E6008A </module>
+        <other>A3717-00051
+28.01.98 </other>
+        <supplier>Hewlett Packard</supplier>
+        <OTDR>E6000A </OTDR>
+        <software>3.0</software>
+    </SupParams>
+    <filename>demo_ab.sor</filename>
+    <version>1.00</version>
+    <Cksum>
+        <checksum>38827</checksum>
+        <checksum_ours>38827</checksum_ours>
+        <match>True</match>
+    </Cksum>
+    <KeyEvents>
+        <num_events>5</num_events>
+        <Summary>
+            <loss_start>0.0</loss_start>
+            <ORL_start>0.0</ORL_start>
+            <ORL>0.0</ORL>
+            <total_loss>0.0</total_loss>
+            <ORL_finish>50.727876</ORL_finish>
+            <loss_end>50.727876</loss_end>
+        </Summary>
+        <event_2>
+            <slope>0.344</slope>
+            <distance>12.711</distance>
+            <comments> </comments>
+            <refl_loss>0.000</refl_loss>
+            <type>0F9999LS {auto} loss/drop/gain</type>
+            <splice_loss>0.209</splice_loss>
+        </event_2>
+        <event_3>
+            <slope>0.342</slope>
+            <distance>25.351</distance>
+            <comments> </comments>
+            <refl_loss>-51.514</refl_loss>
+            <type>1F9999LS {auto} reflection</type>
+            <splice_loss>0.087</splice_loss>
+        </event_3>
+        <event_1>
+            <slope>0.000</slope>
+            <distance>0.000</distance>
+            <comments> </comments>
+            <refl_loss>-50.000</refl_loss>
+            <type>1F9999LS {auto} reflection</type>
+            <splice_loss>0.000</splice_loss>
+        </event_1>
+        <event_4>
+            <slope>0.344</slope>
+            <distance>38.047</distance>
+            <comments> </comments>
+            <refl_loss>0.000</refl_loss>
+            <type>0F9999LS {auto} loss/drop/gain</type>
+            <splice_loss>0.149</splice_loss>
+        </event_4>
+        <event_5>
+            <slope>0.344</slope>
+            <distance>50.728</distance>
+            <comments> </comments>
+            <refl_loss>-16.726</refl_loss>
+            <type>1E9999LS {auto} reflection</type>
+            <splice_loss>13.232</splice_loss>
+        </event_5>
+    </KeyEvents>
+</sor>

@@ -1,15 +1,14 @@
 #!/usr/bin/python
 from __future__ import absolute_import, print_function, unicode_literals
-import sys
 import json
+from functools import reduce
+
 import lazyxml
-from . import parts
 
 def replace_keys(results):
-    
     newresults = {}
     for key in results.keys():
-        newkey = reduce( lambda x,y: x.replace(y,'_'), [' ','/','(',')'], key )
+        newkey = reduce(lambda x,y: x.replace(y,'_'), [' ','/','(',')'], key )
         
         newresults[ newkey ] = results[key]
         if type( newresults[newkey] ) is dict:
@@ -23,13 +22,13 @@ def tofile(results, logfile, format='JSON'):
     """
     
     if format == 'JSON':
-        print(json.dumps(results, sort_keys=True, indent=8, separators=(',',': ')), file=logfile)
-    else:
+        json.dump(results, logfile, sort_keys=True, indent=8, separators=(',',': '))
+    elif format == 'XML':
         newresults = replace_keys(results)
-        xmlstring = lazyxml.dumps(newresults, indent=' '*4, cdata=False, root='sor')
-        print(xmlstring, file=logfile)
+        lazyxml.dump(newresults,logfile, indent=' '*4, cdata=False, root='sor')
+    else:
+        raise ValueError('Format has to be JSON or XML')
         
         # sanity check; should run without problems
         # lazyxml.loads(xmlstring)
-    
-    return
+

@@ -1,12 +1,14 @@
 #!/usr/bin/python
 from __future__ import absolute_import, print_function, unicode_literals
-import sys
 import re
+import logging
 from . import parts
+
+logger = logging.getLogger('pyOTDR')
 
 sep = "    :"
 
-def process(fh, results, debug=False, logfile=sys.stderr):
+def process(fh, results):
     """
     fh: file handle;
     results: dict for results;
@@ -24,7 +26,7 @@ def process(fh, results, debug=False, logfile=sys.stderr):
         startpos = ref['pos']
         fh.seek( startpos )
     except:
-        print(pname," ",bname,"block starting position unknown", file=logfile)
+        logger.error('{} {} block starting position unknown'.format(pname, bname)) 
         return status
     
     format = results['format']
@@ -32,13 +34,13 @@ def process(fh, results, debug=False, logfile=sys.stderr):
     if format == 2:
         mystr = fh.read(hsize).decode('ascii')
         if mystr != bname+'\0':
-            print(pname," incorrect header ",mystr, file=logfile)
+            logger.error('{}  incorrect header '.format(pname, mystr))
             return status
     
     results[bname] = dict()
     xref = results[bname]
     
-    status = _process_keyevents(fh, format, results, debug=debug, logfile=logfile)
+    status = _process_keyevents(fh, format, results)
     
     # read the rest of the block (just in case)
     endpos = results['blocks'][bname]['pos'] + results['blocks'][bname]['size']
@@ -47,15 +49,14 @@ def process(fh, results, debug=False, logfile=sys.stderr):
     return status
 
 # ================================================================
-def _process_keyevents(fh, format, results, debug=False, logfile=sys.stderr):
+def _process_keyevents(fh, format, results):
     """ process version 1 or 2 format """
     bname = "KeyEvents"
     xref  = results[bname]
     
     # number of events
     nev = parts.get_uint(fh, 2)
-    if debug:
-        print("%s %d events" % (sep, nev), file=logfile)
+    logger.debug("{} {} events".format(sep, nev))
     
     xref['num events'] = nev
     
@@ -77,7 +78,7 @@ def _process_keyevents(fh, format, results, debug=False, logfile=sys.stderr):
         xtype = xtype.decode('ascii')
         
         mresults = pat.match( xtype )
-        if mresults != None:
+        if mresults is not None:
             subtype = mresults.groups(0)[0]
             manual  = mresults.groups(0)[1]
             
@@ -121,22 +122,21 @@ def _process_keyevents(fh, format, results, debug=False, logfile=sys.stderr):
             x2ref['peak'] = ("%.3f" % pkpos)
         
         
-        if debug:
-            print("%s Event %d: type %s" % (sep,xid, xtype), file=logfile)
-            print("%s%s distance: %.3f km" % (sep,sep,dist),file=logfile)
-            print("%s%s slope: %.3f dB/km" % (sep,sep,slope),file=logfile)
-            print("%s%s splice loss: %.3f dB" % (sep,sep,splice),file=logfile)
-            print("%s%s refl loss: %.3f dB" % (sep,sep,refl),file=logfile)
-            # version 2
-            if format == 2:
-                print("%s%s end of previous event: %.3f km" % (sep,sep,end_prev), file=logfile)
-                print("%s%s start of current event: %.3f km" % (sep,sep,start_curr), file=logfile)
-                print("%s%s end of current event: %.3f km" % (sep,sep,end_curr), file=logfile)
-                print("%s%s start of next event: %.3f km" % (sep,sep,start_next), file=logfile)
-                print("%s%s peak point of event: %.3f km" % (sep,sep,pkpos), file=logfile)
-            
+        logger.debug("{} Event {}: type {}".format(sep,xid, xtype))
+        logger.debug("{}{} distance: {:.3f} km".format(sep,sep,dist))
+        logger.debug("{}{} slope: {:.3f} dB/km".format(sep,sep,slope))
+        logger.debug("{}{} splice loss: {:.3f} dB".format(sep,sep,splice))
+        logger.debug("{}{} refl loss: {:.3f} dB".format(sep,sep,refl))
+        # version 2
+        if format == 2:
+            logger.debug("{}{} end of previous event: {:.3f} km".format(sep,sep,end_prev))
+            logger.debug("{}{} start of current event: {:.3f} km".format(sep,sep,start_curr))
+            logger.debug("{}{} end of current event: {:.3f} km".format(sep,sep,end_curr))
+            logger.debug("{}{} start of next event: {:.3f} km".format(sep,sep,start_next))
+            logger.debug("{}{} peak point of event: {:.3f} km".format(sep,sep,pkpos))
+        
             # common
-            print("%s%s comments: %s" % (sep,sep,comments), file=logfile)
+            logger.debug("{}{} comments: {}".format(sep,sep,comments))
     
     # ...................................................
     total      = parts.get_signed(fh, 4) * 0.001  # 00-03: total loss
@@ -145,15 +145,15 @@ def _process_keyevents(fh, format, results, debug=False, logfile=sys.stderr):
     orl        = parts.get_uint(fh, 2) * 0.001    # 12-13: optical return loss (ORL)
     orl_start  = parts.get_signed(fh, 4) * factor # 14-17: ORL start position
     orl_finish = parts.get_uint(fh, 4) * factor   # 18-21: ORL finish position
-    if debug:
-        print("%s Summary:" % sep, file=logfile)
-        print("%s%s total loss: %.3f dB" % (sep,sep,total), file=logfile)
-        print("%s%s ORL: %.3f dB" % (sep,sep,orl), file=logfile)
-        print("%s%s loss start: %f km" % (sep,sep,loss_start), file=logfile)
-        print("%s%s loss end: %f km" % (sep,sep,loss_finish), file=logfile)
-        print("%s%s ORL start: %f km" % (sep,sep,orl_start), file=logfile)
-        print("%s%s ORL finish: %f km" % (sep,sep,orl_finish), file=logfile)
-    
+
+    logger.debug("{} Summary:".format(sep))
+    logger.debug("{}{} total loss: {:.3f} dB".format(sep,sep,total))
+    logger.debug("{}{} ORL: {:.3f} dB".format(sep,sep,orl))
+    logger.debug("{}{} loss start: {:f} km".format(sep,sep,loss_start))
+    logger.debug("{}{} loss end: {:f} km".format(sep,sep,loss_finish))
+    logger.debug("{}{} ORL start: {:f} km".format(sep,sep,orl_start))
+    logger.debug("{}{} ORL finish: {:f} km".format(sep,sep,orl_finish))
+
     x3ref = xref["Summary"] = {}
     x3ref["total loss"] = float( "%.3f" % total)
     x3ref["ORL"]        = float( "%.3f" % orl )

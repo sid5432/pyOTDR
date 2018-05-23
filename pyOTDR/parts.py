@@ -3,11 +3,14 @@ from __future__ import absolute_import, print_function, unicode_literals
 import sys
 import struct
 import crcmod
+import logging
+
+logger = logging.getLogger('pyOTDR')
 
 divider = "--------------------------------------------------------------------------------"
 
 # speed of light
-sol = 299792.458/1.0e6; # = 0.299792458 km/usec
+sol = 299792.458/1.0e6 # = 0.299792458 km/usec
 
 # -----------------------------------------------------
 def sorfile(filename):
@@ -23,7 +26,7 @@ def sorfile(filename):
     try:
         fh0 = open(filename,"rb")
     except IOError:
-        print("Failed to read {}".format(filename))
+        logger.error("Failed to read {}".format(filename))
         return None
     
     # wrapper around file handler to also process CRC checksum along the way
@@ -49,7 +52,6 @@ def sorfile(filename):
             if xlen > self.spaceleft:
                 # process then clear buffer
                 self.crc16.update( self.buffer )
-                # print "Clear!"
                 self.buffer = b""
                 self.spaceleft = self.bufsize
             
@@ -104,7 +106,8 @@ def get_float(fh, nbytes):
     elif nbytes == 8:
         val = struct.unpack("<d", tmp)[0]
     else:
-        print("parts.get_float(): Invalid number of bytes ",nbytes)
+        logger.error("parts.get_float(): Invalid number of bytes {}".format(nbytes))
+        # TODO this should raise
         val = None
     
     return val
@@ -128,7 +131,8 @@ def get_uint(fh, nbytes=2):
         val = struct.unpack("<Q",word)[0]
     else:
         val = None
-        print("parts.get_uint(): Invalid number of bytes ",nbytes)
+        # TODO this should raise
+        logger.error("parts.get_uint(): Invalid number of bytes {}".format(nbytes))
     
     return val
 
@@ -151,7 +155,8 @@ def get_signed(fh, nbytes=2):
         val = struct.unpack("<q",word)[0]
     else:
         val = None
-        print("parts.get_signed(): Invalid number of bytes ",nbytes)
+        # TODO this should raise
+        logger.error("parts.get_signed(): Invalid number of bytes {}".format(nbytes))
     
     return val
 
@@ -169,7 +174,7 @@ def get_hex(fh, nbytes=1):
     return hstr
 
 # -----------------------------------------------------
-def slurp(fh, bname, results, debug=False, logfile=sys.stderr):
+def slurp(fh, bname, results):
     """
     fh: file handle;
     results: dict for results;
@@ -183,11 +188,11 @@ def slurp(fh, bname, results, debug=False, logfile=sys.stderr):
         startpos = ref['pos']
         fh.seek( startpos )
     except:
-        print(pname," ",bname,"block starting position unknown", file=logfile)
+        # TODO this should raise
+        logger.error('{} block starting position unknown'.format(bname))
         return status
     
     nn = ref['size']
-    # print "Block size ",nn
     
     fh.read(nn)
     

@@ -1,7 +1,7 @@
 #!/usr/bin/python
 from __future__ import absolute_import, print_function, unicode_literals
-import sys
 import os
+import logging
 
 from . import parts
 from . import mapblock 
@@ -11,10 +11,11 @@ from . import fxdparams
 from . import keyevents
 from . import datapts
 from . import cksum
-from . import dump
+
+logger = logging.getLogger('pyOTDR')
 
 # -----------------------------------------------------
-def sorparse(filename, debug=False, logfile=sys.stdout, dumptrace=True):
+def sorparse(filename, dumptrace=True):
     """ 
     parse SOR file;
     return status and result (dictionary)
@@ -31,7 +32,7 @@ def sorparse(filename, debug=False, logfile=sys.stdout, dumptrace=True):
     tracedata = []
     
     # map block -------------------------------
-    status = mapblock.process(fh, results, debug=debug, logfile=logfile)
+    status = mapblock.process(fh, results)
     if status != 'ok':
         return status, results, tracedata
     
@@ -45,28 +46,25 @@ def sorparse(filename, debug=False, logfile=sys.stdout, dumptrace=True):
         bsize = ref['size']
         start = ref['pos']
         
-        if debug:
-            print("MAIN:  %s block: %d bytes, start pos 0x%X (%d)" % (bname, bsize, start, start), file=logfile)
+
+        logger.debug("\nMAIN:  {} block: {:d} bytes, start pos {:#X} ({:d})".format(bname, bsize, start, start))
         
         if bname == 'GenParams':
-            status = genparams.process(fh, results, debug=debug, logfile=logfile)
+            status = genparams.process(fh, results)
         elif bname == 'SupParams':
-            status = supparams.process(fh, results, debug=debug, logfile=logfile)
+            status = supparams.process(fh, results)
         elif bname == 'FxdParams':
-            status = fxdparams.process(fh, results, debug=debug, logfile=logfile)
+            status = fxdparams.process(fh, results)
         elif bname == 'DataPts':
-            status = datapts.process(fh, results, tracedata, debug=debug, logfile=logfile)
+            status = datapts.process(fh, results, tracedata)
         elif bname == 'KeyEvents':
-            status = keyevents.process(fh, results, debug=debug, logfile=logfile)
+            status = keyevents.process(fh, results)
         elif bname == 'Cksum':
-            status = cksum.process(fh, results, debug=debug, logfile=logfile)
+            status = cksum.process(fh, results)
         else:
-            parts.slurp(fh, bname, results, debug=debug, logfile=logfile)
+            parts.slurp(fh, bname, results)
             status = 'ok'
             pass
-        
-        if debug:
-            print(file=logfile)
             
         # stop immediately if any errors
         if status != 'ok':

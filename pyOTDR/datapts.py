@@ -108,7 +108,7 @@ def _process_data(fh, results, tracedata, dumptrace=True):
     dlist = []
     for i in range(N):
         val = parts.get_uint(fh, 2)
-    dlist.append(val)
+        dlist.append(val)
 
     ymax = max(dlist)
     ymin = min(dlist)
@@ -117,7 +117,7 @@ def _process_data(fh, results, tracedata, dumptrace=True):
     disp_max = "%.3f" % (ymax * fs)
     xref['max before offset'] = float(disp_max)
     xref['min before offset'] = float(disp_min)
-
+    
     logger.debug("{} before applying offset: max {} dB, min {} dB".format(sep, disp_max, disp_min))
 
     # .........................................
@@ -134,10 +134,10 @@ def _process_data(fh, results, tracedata, dumptrace=True):
         nlist = [-x * fs for x in dlist]
 
     for i in range(N):
-    # more work but (maybe) less rounding issues
+        # more work but (maybe) less rounding issues
         x = dx * i * xscaling / 1000.0  # output in km
-        tracedata.append("{:f}\t{:f}".format(x, nlist[i]))
-
+        tracedata.append("{:f}\t{:f}\n".format(x, nlist[i]))
+        
     # .........................................
     status = 'ok'
 

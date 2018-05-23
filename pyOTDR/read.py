@@ -47,7 +47,7 @@ def sorparse(filename, dumptrace=True):
         start = ref['pos']
         
 
-        logger.debug("MAIN:  {} block: {:d} bytes, start pos {:#X} ({:d})".format(bname, bsize, start, start))
+        logger.debug("\nMAIN:  {} block: {:d} bytes, start pos {:#X} ({:d})".format(bname, bsize, start, start))
         
         if bname == 'GenParams':
             status = genparams.process(fh, results)

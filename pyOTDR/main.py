@@ -21,6 +21,9 @@ def main():
         print("     : format: JSON (default) or XML")
         sys.exit()
     
+    logging.basicConfig(format='%(message)s')
+    # logging.basicConfig()
+    
     filename = sys.argv[1]
     opformat = "JSON"
     if len(sys.argv) >= 3:

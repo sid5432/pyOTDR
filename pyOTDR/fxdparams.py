@@ -190,7 +190,7 @@ def _process_fields(fh, plist, results):
                 pass
         
         # don't bother even trying if there are multiple pulse width entries; too lazy
-        # TODO  restructure code to handle this case
+        # to restructure code to handle this case
         if name == 'number of pulse width entries' and val > 1:
             logger.warning('Cannot handle multiple pulse width entries ({}); aborting'.format(val))
             # TODO should raise an exception instead of brutaly exit

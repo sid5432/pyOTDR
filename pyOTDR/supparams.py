@@ -25,7 +25,7 @@ def process(fh, results):
         startpos = ref['pos']
         fh.seek( startpos )
     except:
-        logger.debug('{} {} block starting position unknown'.format(pname, bname))
+        logger.debug('{} {} block starting position unknown'.format(pname, bname) )
         return status
     
     format = results['format']
@@ -37,7 +37,7 @@ def process(fh, results):
             return status
     
     results[bname] = dict()
-
+    
     # version 1 and 2 are the same
     status = process_supparam(fh, results)
     

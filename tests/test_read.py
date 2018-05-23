@@ -56,7 +56,7 @@ def _compare_(sor_filename):
     with open(tfile) as jsf:
         count = 0
         for line in jsf:
-            assert line.strip('\n') == tracedata[count]
+            assert line.strip('\n') == tracedata[count].strip('\n')
             count += 1
     
     return

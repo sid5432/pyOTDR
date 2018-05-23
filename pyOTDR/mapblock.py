@@ -62,9 +62,9 @@ def process(fh, results):
         # start position of next block
         startpos += bsize
     
-    logger.debug(parts.divider)
+    logger.debug(parts.divider+"\n")
     logger.debug("MAIN: next position {:#X}".format(fh.tell()))
-    logger.debug(parts.divider)
+    logger.debug(parts.divider+"\n")
 
     status = 'ok'
     return status

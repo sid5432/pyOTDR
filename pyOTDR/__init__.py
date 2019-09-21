@@ -9,9 +9,9 @@ For using pyOTDR in a module, see the code in pyOTDR/main.py.  The two main func
 
 """
 
-from .read import sorparse
+from .read import sorparse, sorstream
 from .dump import tofile
 from .main import main
 
-__version__ = "1.0.0.c1"
+__version__ = "1.0.0.c2"
 

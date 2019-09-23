@@ -20,9 +20,15 @@ def sorparse(filename, dumptrace=True):
     parse SOR file;
     return status and result (dictionary)
     """
-    fh = parts.sorfile(filename)
-    if fh == None:
+    try:
+        with open(filename, "rb") as f:
+            return sorstream(f, dumptrace)
+    except IOError:
+        logger.error("Failed to read {}".format(filename))
         return "Error opening file", None, None
+    
+def sorstream(f, dumptrace):
+    fh = parts._sorfile(f)
     
     results = dict()
     status = 'ok'

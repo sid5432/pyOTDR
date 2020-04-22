@@ -1,4 +1,2 @@
-logging
-utils
 crcmod
-lazyxml
+xmltodict

@@ -24,10 +24,23 @@ def sorfile(filename):
     these are needed for the CRC checksum calculation to work
     """
     try:
-        fh0 = open(filename,"rb")
+        with open(filename, "rb") as fh0:
+            return _sorfile(fh0)
     except IOError:
         logger.error("Failed to read {}".format(filename))
         return None
+    
+    
+def _sorfile(fh0):
+    """
+    return the file handle; need to close later;
+    
+    we assume that file content is 
+     - all read (not skipped)
+     - only read once (except for the version 1 vs. 2 header; rewind at most once)
+     - read sequentially
+    these are needed for the CRC checksum calculation to work
+    """
     
     # wrapper around file handler to also process CRC checksum along the way
     class FH:

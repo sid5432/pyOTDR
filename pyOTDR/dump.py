@@ -3,7 +3,7 @@ from __future__ import absolute_import, print_function, unicode_literals
 import json
 from functools import reduce
 
-import xmltodict
+import lazyxml
 
 def replace_keys(results):
     newresults = {}
@@ -24,8 +24,11 @@ def tofile(results, logfile, format='JSON'):
     if format == 'JSON':
         json.dump(results, logfile, sort_keys=True, indent=8, separators=(',',': '))
     elif format == 'XML':
-        newresults = replace_keys(results) 
-        res = xmltodict.unparse(newresults, pretty=True)
-        logfile.write(res)
+        newresults = replace_keys(results)
+        lazyxml.dump(newresults,logfile, indent=' '*4, cdata=False, root='sor')
     else:
         raise ValueError('Format has to be JSON or XML')
+        
+        # sanity check; should run without problems
+        # lazyxml.loads(xmlstring)
+

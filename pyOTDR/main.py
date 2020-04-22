@@ -5,7 +5,6 @@ import os
 import re
 import json
 import logging
-import argparse
 if __name__ == '__main__':
     cdir = os.path.dirname( os.path.realpath(__file__) )
     sys.path.insert(0, cdir+"/..")
@@ -17,15 +16,18 @@ logger = logging.getLogger('pyOTDR')
 logger.setLevel(logging.DEBUG)
 
 def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument('SOR_file', type=str, help='Name of the sor file to transform')
-    parser.add_argument('format', type=str, default='JSON', help='Output format : JSON or XML', nargs='?')
-    args = parser.parse_args()
+    if len(sys.argv) < 2:
+        print("USAGE: %s SOR_file [format]" % sys.argv[0])
+        print("     : format: JSON (default) or XML")
+        sys.exit()
     
     logging.basicConfig(format='%(message)s')
+    # logging.basicConfig()
     
-    filename = args.SOR_file
-    opformat = args.format
+    filename = sys.argv[1]
+    opformat = "JSON"
+    if len(sys.argv) >= 3:
+        opformat = "XML" if sys.argv[2] == "XML" else "JSON"
     
     status, results, tracedata = pyOTDR.sorparse(filename) 
     

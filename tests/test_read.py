@@ -39,7 +39,7 @@ def _compare_(sor_filename):
     jsonfile = cdir+"/../data/"+datafile
     
     with open(jsonfile) as jsf:
-        jold = dict( json.load(jsf, encoding=None) )
+        jold = dict( json.load(jsf) )
         
     jnew = json.dumps(results, sort_keys=True )
     jnew = json.loads(jnew)

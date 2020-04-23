@@ -1,7 +1,7 @@
 #!/usr/bin/python
 from __future__ import absolute_import, print_function, unicode_literals
 import sys
-import datetime
+from datetime import datetime, timezone
 import logging
 from . import parts
 
@@ -178,8 +178,7 @@ def _process_fields(fh, plist, results):
 
         # .................................
         if name == 'date/time':
-            # xstr = str(datetime.datetime.fromtimestamp(val))+(" (%d sec)" % val)
-            xstr = datetime.datetime.fromtimestamp(val).strftime("%a %b %d %H:%M:%S %Y") + \
+            xstr = datetime.fromtimestamp(val, timezone.utc).strftime("%a %b %d %H:%M:%S %Y") + \
             (" (%d sec)" % val)
         elif name == 'unit':
             xstr += unit_map[ xstr ]

@@ -1,4 +1,3 @@
-logging
 utils
 crcmod
 lazyxml

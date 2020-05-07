@@ -1,0 +1,25 @@
+name: Python test and build
+on:
+  push:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.6, 3.7, 3.8]
+    steps:
+    - uses: actions/checkout@v1
+    - name: setup python ${{ matrix.python-version }}
+      uses: actions/setup-python@v1
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install dependencies
+      run: |
+        pip install utils # lazyxml is poorly packaged :-/
+        pip install -r requirements.txt -r dev-requirements.txt
+    - name: run tests
+      run: |
+        pytest tests
+
+

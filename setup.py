@@ -16,6 +16,10 @@ here = path.abspath(path.dirname(__file__))
 # Get the long description from the README file
 with open(path.join(here, 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
+
+with open(path.join(here, 'requirements.txt')) as f:
+    # deps are specified in requirements.txt. Avoid empty line.
+    requirements = [x for x in f.read().split('\n') if x]
     
 # Arguments marked as "Required" below must be included for upload to PyPI.
 # Fields marked as "Optional" may be commented out.
@@ -42,15 +46,10 @@ setup(
                    
                    # Pick your license as you wish
                    'License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)',
-                   
-                   # Specify the Python versions you support here. In particular, ensure
-                   # that you indicate whether you support Python 2, Python 3 or both.
-                   'Programming Language :: Python :: 2',
-                   'Programming Language :: Python :: 2.7',
                    'Programming Language :: Python :: 3',
-                   'Programming Language :: Python :: 3.4',
-                   'Programming Language :: Python :: 3.5',
                    'Programming Language :: Python :: 3.6',
+                   'Programming Language :: Python :: 3.7',
+                   'Programming Language :: Python :: 3.8',
                   ],
       
       keywords='SR-4731 reflectometer Telcordia OTDR SOR ',
@@ -65,17 +64,12 @@ setup(
       #   py_modules=["my_module"],
       #
       # packages=find_packages(exclude=['contrib', 'docs', 'tests']),  # Required
-      packages=find_packages(exclude=['archive']),
+      packages=find_packages(),
       
-      install_requires=['utils','crcmod','lazyxml'],
-      
-      extras_require={
-                      # 'dev': ['check-manifest'],
-                      'test': ['pytest'],
-                     },
-      
+      install_requires=requirements,
+
       include_package_data=True,
-      
+
       package_data={
                     'data': ['*sor'],
                    },

@@ -13,7 +13,7 @@ from . import cksum
 logger = logging.getLogger(__name__)
 
 # -----------------------------------------------------
-def sorparse(filename, dumptrace=True):
+def sorparse(filename):
     """ 
     parse SOR file;
     return status and result (dictionary)

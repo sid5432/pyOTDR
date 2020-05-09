@@ -55,7 +55,7 @@ def process(fh, results):
 
     if format == 1:
         plist = (  # name, start-pos, length (bytes), type, multiplier, precision, units
-            # type: display type: 'v' (value) or 'h' (hexidecimal) or 's' (string)
+            # value: display type: 'v' (value) or 'h' (hexidecimal) or 's' (string)
             [
                 "date/time",
                 0,
@@ -192,7 +192,7 @@ def process(fh, results):
         )
     else:
         plist = (  # name, start-pos, length (bytes), type, multiplier, precision, units
-            # type: display type: 'v' (value) or 'h' (hexidecimal) or 's' (string)
+            # value: display type: 'v' (value) or 'h' (hexidecimal) or 's' (string)
             [
                 "date/time",
                 0,

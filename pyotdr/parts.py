@@ -1,4 +1,6 @@
 import struct
+from typing import BinaryIO
+
 import crcmod
 import logging
 
@@ -11,8 +13,62 @@ divider = (
 # speed of light
 sol = 299792.458 / 1.0e6  # = 0.299792458 km/usec
 
-# -----------------------------------------------------
-def sorfile(filename):
+
+class FH:
+    """
+    wrapper around file handler to also process CRC checksum along the way
+    """
+
+    def __init__(self, filehandle: BinaryIO):
+        self.filehandle = filehandle
+        self.bufsize = 2048  # adjust as needed
+        self.buffer = b""
+        self.spaceleft = self.bufsize
+        """
+        Calculate the CRC16 CCITT checksum of *data*.
+        
+        (CRC16 CCITT: start 0xFFFF, poly 0x1021)
+        same as:
+        
+        crcmod.mkCrcFun( 0x11021, initCrc=0xFFFF, xorOut=0x0000, rev=False)
+        """
+        self.crc16 = crcmod.predefined.Crc("crc-ccitt-false")
+
+    def read(self, *args, **kargs):
+        buf = self.filehandle.read(*args, **kargs)
+        xlen = len(buf)
+        if xlen > self.spaceleft:
+            # process then clear buffer
+            self.crc16.update(self.buffer)
+            self.buffer = b""
+            self.spaceleft = self.bufsize
+
+        self.buffer += buf
+        self.spaceleft -= xlen
+        return buf
+
+    def digest(self):
+        # last part of the file
+        self.crc16.update(self.buffer)
+        return self.crc16.crcValue
+
+    def seek(self, *args, **kargs):
+        # assume a rewind, and reset buffer
+        if args[0] == 0:
+            self.buffer = b""
+            self.spaceleft = self.bufsize
+            self.crc16 = crcmod.predefined.Crc("crc-ccitt-false")
+
+        return self.filehandle.seek(*args, **kargs)
+
+    def tell(self) -> int:
+        return self.filehandle.tell()
+
+    def close(self) -> None:
+        return self.filehandle.close()
+
+
+def sorfile(filename: str) -> "FH":
     """
     return the file handle; need to close later;
     
@@ -23,69 +79,18 @@ def sorfile(filename):
     these are needed for the CRC checksum calculation to work
     """
     try:
-        fh0 = open(filename, "rb")
-    except IOError:
+        fh = open(filename, "rb")
+        return FH(fh)
+    except IOError as e:
         logger.error("Failed to read {}".format(filename))
-        return None
-
-    # wrapper around file handler to also process CRC checksum along the way
-    class FH:
-        def __init__(self):
-            self.bufsize = 2048  # adjust as needed
-            self.buffer = b""
-            self.spaceleft = self.bufsize
-            """
-            Calculate the CRC16 CCITT checksum of *data*.
-            
-            (CRC16 CCITT: start 0xFFFF, poly 0x1021)
-            same as:
-            
-            crcmod.mkCrcFun( 0x11021, initCrc=0xFFFF, xorOut=0x0000, rev=False)
-            """
-            self.crc16 = crcmod.predefined.Crc("crc-ccitt-false")
-            return
-
-        def read(self, *args, **kargs):
-            buf = fh0.read(*args, **kargs)
-            xlen = len(buf)
-            if xlen > self.spaceleft:
-                # process then clear buffer
-                self.crc16.update(self.buffer)
-                self.buffer = b""
-                self.spaceleft = self.bufsize
-
-            self.buffer += buf
-            self.spaceleft -= xlen
-            return buf
-
-        def digest(self):
-            # last part of the file
-            self.crc16.update(self.buffer)
-            return self.crc16.crcValue
-
-        def seek(self, *args, **kargs):
-            # assume a rewind, and reset buffer
-            if args[0] == 0:
-                self.buffer = b""
-                self.spaceleft = self.bufsize
-                self.crc16 = crcmod.predefined.Crc("crc-ccitt-false")
-
-            return fh0.seek(*args, **kargs)
-
-        def tell(self, *args, **kargs):
-            return fh0.tell(*args, **kargs)
-
-        def close(self, *args, **kargs):
-            return fh0.close(*args, **kargs)
-
-    fh = FH()
-
-    return fh
+        raise e
 
 
 # -----------------------------------------------------
-def get_string(fh):
-    """fh is the file handle """
+def get_string(fh: BinaryIO) -> str:
+    """
+    Get string from the file handle. decode as utf-8
+    """
     mystr = b""
     byte = fh.read(1)
     while byte != "":
@@ -98,24 +103,19 @@ def get_string(fh):
     return mystr.decode("utf-8")
 
 
-# -----------------------------------------------------
-def get_float(fh, nbytes):
+def get_float(fh: "FH", nbytes: int) -> float:
     """get floating point; fh is the file handle """
     tmp = fh.read(nbytes)
     if nbytes == 4:
-        val = struct.unpack("<f", tmp)[0]
+        return struct.unpack("<f", tmp)[0]
     elif nbytes == 8:
-        val = struct.unpack("<d", tmp)[0]
+        return struct.unpack("<d", tmp)[0]
     else:
         logger.error("parts.get_float(): Invalid number of bytes {}".format(nbytes))
-        # TODO this should raise
-        val = None
-
-    return val
+        raise ValueError("Trying to get float of size > 8bytes")
 
 
-# -----------------------------------------------------
-def get_uint(fh, nbytes=2):
+def get_uint(fh: "FH", nbytes: int = 2) -> int:
     """
     get unsigned int (little endian), 2 bytes by default
     (assume nbytes is positive)
@@ -124,23 +124,19 @@ def get_uint(fh, nbytes=2):
     word = fh.read(nbytes)
     if nbytes == 2:
         # unsigned short
-        val = struct.unpack("<H", word)[0]
+        return struct.unpack("<H", word)[0]
     elif nbytes == 4:
         # unsigned int
-        val = struct.unpack("<I", word)[0]
+        return struct.unpack("<I", word)[0]
     elif nbytes == 8:
         # unsigned long long
-        val = struct.unpack("<Q", word)[0]
+        return struct.unpack("<Q", word)[0]
     else:
-        val = None
-        # TODO this should raise
         logger.error("parts.get_uint(): Invalid number of bytes {}".format(nbytes))
+        raise ValueError("Trying to get uint of size > 8bytes")
 
-    return val
 
-
-# -----------------------------------------------------
-def get_signed(fh, nbytes=2):
+def get_signed(fh: "FH", nbytes: int = 2) -> int:
     """
     get signed int (little endian), 2 bytes by default
     (assume nbytes is positive)
@@ -157,15 +153,13 @@ def get_signed(fh, nbytes=2):
         # unsigned long long
         val = struct.unpack("<q", word)[0]
     else:
-        val = None
-        # TODO this should raise
         logger.error("parts.get_signed(): Invalid number of bytes {}".format(nbytes))
+        raise ValueError("Trying to get int of size > 8bytes")
 
     return val
 
 
-# -----------------------------------------------------
-def get_hex(fh, nbytes=1):
+def get_hex(fh: "FH", nbytes: int = 1) -> str:
     """
     get nbyte bytes (1 by default)
     and display as hexidecimal
@@ -174,12 +168,10 @@ def get_hex(fh, nbytes=1):
     for i in range(nbytes):
         b = "%02X " % ord(fh.read(1))
         hstr += b
-
     return hstr
 
 
-# -----------------------------------------------------
-def slurp(fh, bname, results):
+def slurp(fh: "FH", bname: str, results: dict) -> str:
     """
     fh: file handle;
     results: dict for results;

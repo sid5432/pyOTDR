@@ -1,18 +1,11 @@
-#!/usr/bin/python
-from __future__ import absolute_import, print_function, unicode_literals
-import sys
 import os
-import re
 import json
-
-# import jsondiff
 
 cdir = os.path.dirname(os.path.realpath(__file__))
 
-sys.path.insert(0, cdir + "/..")
 
-import pyOTDR
-from pyOTDR import parts
+from pyotdr.read import sorparse
+from pyotdr import parts
 
 
 def ordered(obj):
@@ -31,7 +24,7 @@ def _compare_(sor_filename):
     assert fh != None
     fh.close()
 
-    status, results, tracedata = pyOTDR.sorparse(filename)
+    status, results, tracedata = sorparse(filename)
 
     assert status == "ok"
 
@@ -78,10 +71,3 @@ def test_read2():
 def test_read3():
     _compare_("M200_Sample_005_S13.sor")
     return
-
-
-# ==================================
-if __name__ == "__main__":
-    test_read1()
-    test_read2()
-    test_read3()

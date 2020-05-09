@@ -5,7 +5,7 @@ from . import parts
 
 sep = "    :"
 
-logger = logging.getLogger("pyOTDR")
+logger = logging.getLogger(__name__)
 
 
 def process(fh, results, tracedata):

@@ -10,7 +10,7 @@ from . import keyevents
 from . import datapts
 from . import cksum
 
-logger = logging.getLogger("pyOTDR")
+logger = logging.getLogger(__name__)
 
 # -----------------------------------------------------
 def sorparse(filename, dumptrace=True):

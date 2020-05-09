@@ -1,14 +1,9 @@
-#!/usr/bin/python
-from __future__ import absolute_import, print_function, unicode_literals
 import sys
 import os
 
 cdir = os.path.dirname(os.path.realpath(__file__))
-# print "@ ",cdir
 
-sys.path.insert(0, cdir + "/..")
-
-from pyOTDR import parts
+from pyotdr import parts
 
 
 def file1():

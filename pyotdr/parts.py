@@ -2,7 +2,7 @@ import struct
 import crcmod
 import logging
 
-logger = logging.getLogger("pyOTDR")
+logger = logging.getLogger(__name__)
 
 divider = (
     "--------------------------------------------------------------------------------"

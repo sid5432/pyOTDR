@@ -1,16 +1,9 @@
-#!/usr/bin/python
-from __future__ import absolute_import, print_function, unicode_literals
-import sys
 import os
-
-cdir = os.path.dirname(os.path.realpath(__file__))
 import crcmod
 
-sys.path.insert(0, cdir + "/..")
+from pyotdr.read import sorparse
 
-import pyOTDR
-from pyOTDR import cksum
-
+cdir = os.path.dirname(os.path.realpath(__file__))
 
 def crc16_ccitt(data):
     """
@@ -38,12 +31,7 @@ def test_cksum():
 
     assert len(data) == 25708
 
-    if sys.version_info > (3, 0):
-        # python 3
-        file_chk = data[-1] * 256 + data[-2]
-    else:
-        # python 2
-        file_chk = ord(data[-1]) * 256 + ord(data[-2])
+    file_chk = data[-1] * 256 + data[-2]
 
     assert file_chk == 38827
 
@@ -57,7 +45,7 @@ def test_cksum():
 
     devnull = open(os.devnull, "w")
     # test against module (SOR version 1)
-    status, results, tracedata = pyOTDR.sorparse(filename)
+    status, results, tracedata = sorparse(filename)
     # print(results)
     # print "* Our calcuated check sum: ",digest
     assert results["Cksum"]["checksum_ours"] == digest
@@ -66,7 +54,7 @@ def test_cksum():
 
     # SOR version 2
     filename = cdir + "/../data/sample1310_lowDR.sor"
-    status, results, tracedata = pyOTDR.sorparse(filename)
+    status, results, tracedata = sorparse(filename)
     # status, results, tracedata = pyOTDR.sorparse(filename, debug=True, logfile=sys.stderr)
 
     assert results["Cksum"]["checksum_ours"] == 62998

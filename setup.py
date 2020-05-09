@@ -50,27 +50,6 @@ setup(
         "Programming Language :: Python :: 3.8",
     ],
     keywords="SR-4731 reflectometer Telcordia OTDR SOR ",
-    # You can just specify package directories manually here if your project is
-    # simple. Or you can use find_packages().
-    #
-    # Alternatively, if you just want to distribute a single Python file, use
-    # the `py_modules` argument instead as follows, which will expect a file
-    # called `my_module.py` to exist:
-    #
-    #   py_modules=["my_module"],
-    #
-    # packages=find_packages(exclude=['contrib', 'docs', 'tests']),  # Required
     packages=find_packages(),
     install_requires=requirements,
-    include_package_data=True,
-    package_data={"data": ["*sor"],},
-    # data_files=[('my_data', ['data/data_file'])],  # Optional
-    # To provide executable scripts, use entry points in preference to the
-    # "scripts" keyword. Entry points provide cross-platform support and allow
-    # `pip` to create the appropriate form of executable for the target
-    # platform.
-    #
-    # For example, the following would provide a command called `sample` which
-    # executes the function `main` from this package when invoked:
-    entry_points={"console_scripts": ["pyOTDR=pyOTDR:main",],},  # Optional
 )

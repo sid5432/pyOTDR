@@ -3,7 +3,7 @@ from datetime import datetime, timezone
 import logging
 from . import parts
 
-logger = logging.getLogger("pyOTDR")
+logger = logging.getLogger(__name__)
 
 sep = "    :"
 unit_map = {

@@ -1,15 +1,9 @@
-#!/usr/bin/python
-from __future__ import absolute_import, print_function, unicode_literals
-import sys
 import os
 
 cdir = os.path.dirname(os.path.realpath(__file__))
-# print "@ ",cdir
 
-sys.path.insert(0, cdir + "/..")
-
-import pyOTDR
-from pyOTDR import parts
+from pyotdr.read import sorparse
+from pyotdr import parts
 
 
 def test_map():
@@ -18,7 +12,7 @@ def test_map():
     assert fh != None
     fh.close()
 
-    status, results, trace = pyOTDR.sorparse(filename)
+    status, results, trace = sorparse(filename)
 
     assert status == "ok"
 

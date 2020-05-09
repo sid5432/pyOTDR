@@ -1,9 +1,6 @@
-#!/usr/bin/python
-from __future__ import absolute_import, print_function, unicode_literals
 import json
 from functools import reduce
-
-import lazyxml
+from dicttoxml import dicttoxml
 
 def replace_keys(results):
     newresults = {}
@@ -25,10 +22,11 @@ def tofile(results, logfile, format='JSON'):
         json.dump(results, logfile, sort_keys=True, indent=8, separators=(',',': '))
     elif format == 'XML':
         newresults = replace_keys(results)
-        lazyxml.dump(newresults,logfile, indent=' '*4, cdata=False, root='sor')
+        logfile.write(dicttoxml(newresults, custom_root="sor", attr_type=False).decode("utf-8"))
+
+        #lazyxml.dump(newresults, logfile, indent=' '*4, cdata=False, root='sor')
     else:
         raise ValueError('Format has to be JSON or XML')
-        
         # sanity check; should run without problems
         # lazyxml.loads(xmlstring)
 

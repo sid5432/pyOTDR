@@ -1,8 +1,4 @@
-#!/usr/bin/python
-from __future__ import absolute_import, print_function, unicode_literals
-import sys
 import logging
-from . import parts
 
 logger = logging.getLogger('pyOTDR')
 
@@ -46,4 +42,3 @@ def process(fh, results):
     fh.read( endpos - fh.tell() )
     status = 'ok'
     return status
-

@@ -12,7 +12,7 @@ from pyotdr.read import sorparse
 
 logging.basicConfig(format="%(message)s")
 logger = logging.getLogger(__name__)
-LOG_LEVEL = os.getenv('LOG_LEVEL', 'DEBUG')
+LOG_LEVEL = os.getenv("LOG_LEVEL", "DEBUG")
 logger.setLevel(LOG_LEVEL)
 
 

@@ -5,6 +5,7 @@ from pyotdr.read import sorparse
 
 cdir = os.path.dirname(os.path.realpath(__file__))
 
+
 def crc16_ccitt(data):
     """
     Calculate the CRC16 CCITT checksum of *data*.

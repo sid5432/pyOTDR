@@ -1,14 +1,8 @@
-import sys
 import os
 import logging
 import argparse
-
-from pyotdr.dump import tofile
+from pyotdr.dump import tofile, ExportDataType
 from pyotdr.read import sorparse
-
-# if __name__ == "__main__":
-#     cdir = os.path.dirname(os.path.realpath(__file__))
-#     sys.path.insert(0, cdir + "/..")
 
 logging.basicConfig(format="%(message)s")
 logger = logging.getLogger(__name__)
@@ -21,8 +15,9 @@ def main():
     parser.add_argument("SOR_file", type=str, help="Name of the sor file to transform")
     parser.add_argument(
         "format",
-        type=str,
-        default="JSON",
+        type=ExportDataType,
+        choices=list(ExportDataType),
+        default=ExportDataType.JSON,
         help="Output format : JSON or XML",
         nargs="?",
     )
@@ -33,16 +28,13 @@ def main():
     root_logger.setLevel(LOG_LEVEL)
 
     filename = args.SOR_file
-    opformat = args.format
+    opformat = ExportDataType(args.format)
 
     _, results, tracedata = sorparse(filename)
 
     # construct data file name to dump results
     fn_strip, _ = os.path.splitext(os.path.basename(filename))
-    if opformat == "JSON":
-        datafile = fn_strip + "-dump.json"
-    else:
-        datafile = fn_strip + "-dump.xml"
+    datafile = fn_strip + "-dump." + str(opformat).lower()
 
     with open(datafile, "w") as output:
         tofile(results, output, format=opformat)

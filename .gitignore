@@ -47,6 +47,7 @@ nosetests.xml
 coverage.xml
 *.cover
 .hypothesis/
+.mypy_cache
 
 
 # Sphinx documentation

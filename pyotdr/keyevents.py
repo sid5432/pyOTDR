@@ -33,7 +33,7 @@ def process(fh, results):
     if format == 2:
         mystr = fh.read(hsize).decode("ascii")
         if mystr != bname + "\0":
-            logger.error("{}  incorrect header ".format(pname, mystr))
+            logger.error("{} {} incorrect header ".format(pname, mystr))
             return status
 
     results[bname] = dict()

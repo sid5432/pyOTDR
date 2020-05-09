@@ -1,5 +1,8 @@
 # pyOTDR: Simple OTDR SOR file parse written in Python
 
+
+![PyPI - Python Version](https://img.shields.io/pypi/pyversions/pyotdr)
+
 The SOR ("Standard OTDR Record") data format is used to store OTDR 
 ([optical time-domain
 reflectometer](http://https://en.wikipedia.org/wiki/Optical_time-domain_reflectometer)
@@ -51,19 +54,22 @@ risk! You have been warned!**
 The program was ported over from my original [pubOTDR](https://github.com/sid5432/pubOTDR)
 written in Perl.  To parse an OTDR SOR file, run the program as
 
-    pyOTDR.py myfile.sor
+    pyOTDR myfile.sor
 
 where "mfile.sor" is the name (path) to your SOR file.  A OTDR trace file "myfile-trace.dat" and a JSON file "myfile-dump.json" will be produced.  You can also output the results as an XML file "myfile-dump.xml" with:
 
-    pyOTDR.py myfile.sor XML
+    pyOTDR myfile.sor XML
 
 There is also a Ruby version ([rbOTDR](https://github.com/sid5432/rbOTDR)), a 
 javascript/node version([jsOTDR](https://github.com/sid5432/jsOTDR)), and a 
 Clojure version ([cljotdr](https://github.com/sid5432/cljotdr)); the Clojure
 version may be of interest to people looking for a Java version, since Clojure runs on top of a Java Virtual Machine (JVM).
 
-
 ## Install
+
+    pip install pyotdr
+
+## Dev Install
 
 This program requires python 2 or python 3. To install dependencies, run
 
@@ -109,6 +115,6 @@ above will mount your home directory to the */data* folder inside the docker ins
 command pyOTDR.py (installed as */pyOTDR/pyOTDR.py*) will be in your execution path.
 The docker instance removes itself when you exit the instance.
 
-(*Last Revised 2018-01-12*)
+(*Last Revised 2020-05-09*)
 
 

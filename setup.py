@@ -14,7 +14,7 @@ from os import path
 here = path.abspath(path.dirname(__file__))
 
 # Get the long description from the README file
-with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
+with open(path.join(here, 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
     
 # Arguments marked as "Required" below must be included for upload to PyPI.
@@ -22,13 +22,13 @@ with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
 
 setup(
       name='pyOTDR',
-      version='1.0.0c1',
+      version='1.0.0',
       
       description='A simple OTDR SOR file parser',
       long_description=long_description,
       url='https://github.com/sid5432/pyOTDR',
-      author='Sidney Li',
-      author_email='sidneyli5432@gmail.com',
+      author='Sidney Li, Rémi Desgrange',
+      author_email='sidneyli5432@gmail.com, remi+pyotdr@desgran.ge',
       classifiers=[  # Optional
                    # How mature is this project? Common values are
                    #   3 - Alpha

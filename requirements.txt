@@ -1,2 +1,3 @@
 crcmod
 dicttoxml
+click

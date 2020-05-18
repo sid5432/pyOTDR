@@ -37,7 +37,7 @@ html: doc
 	rst2html5.py README.rst > README.html
 
 test1:
-	./pyOTDR/main.py data/demo_ab.sor
+	pyOTDR data/demo_ab.sor
 
 test2:
-	./pyOTDR/main.py data/sample1310_lowDR.sor
+	pyOTDR data/sample1310_lowDR.sor

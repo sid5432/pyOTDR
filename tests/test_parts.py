@@ -7,20 +7,20 @@ from pyotdr import parts
 
 
 def file1():
-    """ SOR version 1 file """
+    """SOR version 1 file"""
     filename = cdir + "/../data/demo_ab.sor"
     return filename
 
 
 def file2():
-    """ SOR version 2 file """
+    """SOR version 2 file"""
     filename = cdir + "/../data/sample1310_lowDR.sor"
     return filename
 
 
 # -------------------------------------------------------
 def test_get_string():
-    """ test get_string """
+    """test get_string"""
     filename = file2()
     fh = parts.sorfile(filename)
     assert fh != None
@@ -36,7 +36,7 @@ def test_get_string():
 
 # -------------------------------------------------------
 def test_get_uint():
-    """ test get_unsigned int (2 or 4) """
+    """test get_unsigned int (2 or 4)"""
     filename = file1()
     fh = parts.sorfile(filename)
     assert fh != None
@@ -56,7 +56,7 @@ def test_get_uint():
 
 # -------------------------------------------------------
 def test_get_hex():
-    """ test hex conversion"""
+    """test hex conversion"""
     filename = file1()
     fh = parts.sorfile(filename)
     assert fh != None
@@ -70,7 +70,7 @@ def test_get_hex():
 
 # -------------------------------------------------------
 def test_get_signed():
-    """ test signed integer conversion"""
+    """test signed integer conversion"""
     filename = file2()
     fh = parts.sorfile(filename)
     assert fh != None

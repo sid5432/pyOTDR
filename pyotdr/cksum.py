@@ -8,7 +8,7 @@ def process(fh, results, debug=False):
     """
     fh: file handle;
     results: dict for results;
-    
+
     we assume mapblock.process() has already been run
     """
     bname = "Cksum"

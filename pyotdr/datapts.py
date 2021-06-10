@@ -12,7 +12,7 @@ def process(fh, results, tracedata):
     """
     fh: file handle;
     results: dict for results;
-    
+
     we assume mapblock.process() has already been run
     """
     bname = "DataPts"
@@ -56,7 +56,7 @@ def process(fh, results, tracedata):
 
 # ================================================================
 def _process_data(fh, results, tracedata, dumptrace=True):
-    """ process version 1 format """
+    """process version 1 format"""
     bname = "DataPts"
     xref = results[bname]
 

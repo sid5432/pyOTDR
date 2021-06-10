@@ -25,7 +25,7 @@ def replace_keys(results):
 
 
 def tofile(results, logfile, format: ExportDataType = ExportDataType.JSON):
-    """ 
+    """
     dump results to file (specifiled by file handle logfile)
     """
 

@@ -10,7 +10,7 @@ def process(fh, results):
     """
     fh: file handle;
     results: dict for results;
-    
+
     we assume mapblock.process() has already been run
     """
     bname = "GenParams"
@@ -69,8 +69,8 @@ def build_condition(bcstr):
 
 # ================================================================
 def fiber_type(val):
-    """ 
-    decode fiber type 
+    """
+    decode fiber type
     REF: http://www.ciscopress.com/articles/article.asp?p=170740&seqNum=7
     """
     if val == 651:  # ITU-T G.651
@@ -92,7 +92,7 @@ def fiber_type(val):
 
 # ================================================================
 def process1(fh, results):
-    """ process version 1 format """
+    """process version 1 format"""
     bname = "GenParams"
     xref = results[bname]
 
@@ -138,7 +138,7 @@ def process1(fh, results):
 
 # ================================================================
 def process2(fh, results):
-    """ process version 2 format """
+    """process version 2 format"""
     bname = "GenParams"
     xref = results[bname]
 

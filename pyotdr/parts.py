@@ -71,8 +71,8 @@ class FH:
 def sorfile(filename: str) -> "FH":
     """
     return the file handle; need to close later;
-    
-    we assume that file content is 
+
+    we assume that file content is
      - all read (not skipped)
      - only read once (except for the version 1 vs. 2 header; rewind at most once)
      - read sequentially
@@ -104,7 +104,7 @@ def get_string(fh: BinaryIO) -> str:
 
 
 def get_float(fh: "FH", nbytes: int) -> float:
-    """get floating point; fh is the file handle """
+    """get floating point; fh is the file handle"""
     tmp = fh.read(nbytes)
     if nbytes == 4:
         return struct.unpack("<f", tmp)[0]
@@ -175,7 +175,7 @@ def slurp(fh: "FH", bname: str, results: dict) -> str:
     """
     fh: file handle;
     results: dict for results;
-    
+
     just read this block without processing
     """
     status = "nok"

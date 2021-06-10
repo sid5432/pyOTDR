@@ -10,7 +10,7 @@ def process(fh, results):
     """
     fh: file handle;
     results: dict for results;
-    
+
     we assume mapblock.process() has already been run
     """
     bname = "SupParams"
@@ -49,7 +49,7 @@ def process(fh, results):
 
 # ================================================================
 def process_supparam(fh, results):
-    """ process SupParams fields """
+    """process SupParams fields"""
     bname = "SupParams"
     xref = results[bname]
 

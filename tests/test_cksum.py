@@ -9,10 +9,10 @@ cdir = os.path.dirname(os.path.realpath(__file__))
 def crc16_ccitt(data):
     """
     Calculate the CRC16 CCITT checksum of *data*.
-    
+
     (CRC16 CCITT: start 0xFFFF, poly 0x1021)
     same as:
-    
+
     crcmod.mkCrcFun( 0x11021, initCrc=0xFFFF, xorOut=0x0000, rev=False)
     """
     crc16 = crcmod.predefined.mkCrcFun("crc-ccitt-false")

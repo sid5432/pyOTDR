@@ -27,7 +27,7 @@ with open(path.join(here, "requirements.txt")) as f:
 
 setup(
     name="pyOTDR",
-    version="1.0.0",
+    version="2.0.0",
     description="A simple OTDR SOR file parser",
     long_description=long_description,
     url="https://github.com/sid5432/pyOTDR",
@@ -48,6 +48,7 @@ setup(
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
     ],
     keywords="SR-4731 reflectometer Telcordia OTDR SOR ",
     packages=find_packages(),

@@ -11,7 +11,7 @@ def process(fh, results):
     """
     fh: file handle;
     results: dict for results;
-    
+
     we assume mapblock.process() has already been run
     """
     bname = "KeyEvents"
@@ -50,7 +50,7 @@ def process(fh, results):
 
 # ================================================================
 def _process_keyevents(fh, format, results):
-    """ process version 1 or 2 format """
+    """process version 1 or 2 format"""
     bname = "KeyEvents"
     xref = results[bname]
 

@@ -25,7 +25,7 @@ def process(fh, results):
     """
     fh: file handle;
     results: dict for results;
-    
+
     we assume mapblock.process() has already been run
     """
     bname = "FxdParams"

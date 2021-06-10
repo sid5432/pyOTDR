@@ -14,7 +14,7 @@ logger = logging.getLogger(__name__)
 
 # -----------------------------------------------------
 def sorparse(filename):
-    """ 
+    """
     parse SOR file;
     return status and result (dictionary)
     """

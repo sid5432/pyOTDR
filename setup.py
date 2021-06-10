@@ -30,6 +30,7 @@ setup(
     version="2.0.0",
     description="A simple OTDR SOR file parser",
     long_description=long_description,
+    long_description_content_type='text/markdown',
     url="https://github.com/sid5432/pyOTDR",
     author="Sidney Li, Rémi Desgrange",
     author_email="sidneyli5432@gmail.com, remi+pyotdr@desgran.ge",

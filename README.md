@@ -71,7 +71,7 @@ version may be of interest to people looking for a Java version, since Clojure r
 
 ## Dev Install
 
-This program requires python 2 or python 3. To install dependencies, run
+This program requires  python 3.6 or higher (see badge) To install dependencies, run
 
     pip install -r requirement.txt
 
@@ -79,7 +79,7 @@ I recently reorganized the whole package to submit to PyPI (Python Package Index
 now be able to install the whole thing with
 
 	pip install pyOTDR
-    
+
 This should create an executable called **pyOTDR** that is ready to use.
 
 ### Docker
@@ -108,13 +108,13 @@ once the build is completed. You can now run the command
     
 or type the docker command:
 
-	docker run -ti --rm -v $HOME:/data sidneyli/pyotdr:latest /bin/bash
+	docker run -ti --rm -u $(id -u):$(id -g) -v $HOME:/data sidneyli/pyotdr:latest /bin/bash
 
-to spin up an instance of the docker image. This will start a command shell for you to run the *pyOTDR.py* program.  The docker command
+to spin up a container. This will start a command shell for you to run the *pyOTDR.py* program.  The docker command
 above will mount your home directory to the */data* folder inside the docker instance.  The
 command pyOTDR.py (installed as */pyOTDR/pyOTDR.py*) will be in your execution path.
-The docker instance removes itself when you exit the instance.
+The container removes itself when you exit the instance.
 
-(*Last Revised 2020-05-09*)
+(*Last Revised 2021-07-26*)
 
 

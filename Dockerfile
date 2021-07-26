@@ -1,4 +1,4 @@
-FROM python:3.8-slim
+FROM python:3.9-slim
 
 WORKDIR /pyotdr
 COPY requirements.txt .
@@ -7,4 +7,4 @@ COPY . .
 RUN pip install .
 
 
-ENTRYPOINT ["pyOTDR"]
+CMD ["pyOTDR"]

@@ -22,7 +22,7 @@ docker-build:
 	
 docker-run:
 	echo "NOTE: not checking if docker image exists already!"
-	docker run -ti --rm -v $(HOME):/data sidneyli/pyotdr:latest /bin/bash
+	docker run -ti --rm -u `id -u`:`id -g` -v $(HOME):/data sidneyli/pyotdr:latest /bin/bash
 
 test: testall
 

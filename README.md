@@ -54,11 +54,11 @@ risk! You have been warned!**
 The program was ported over from my original [pubOTDR](https://github.com/sid5432/pubOTDR)
 written in Perl.  To parse an OTDR SOR file, run the program as
 
-    pyOTDR myfile.sor
+    pyotdr myfile.sor
 
 where "mfile.sor" is the name (path) to your SOR file.  A OTDR trace file "myfile-trace.dat" and a JSON file "myfile-dump.json" will be produced.  You can also output the results as an XML file "myfile-dump.xml" with:
 
-    pyOTDR myfile.sor XML
+    pyotdr myfile.sor XML
 
 There is also a Ruby version ([rbOTDR](https://github.com/sid5432/rbOTDR)), a 
 javascript/node version([jsOTDR](https://github.com/sid5432/jsOTDR)), and a 
@@ -78,9 +78,9 @@ This program requires  python 3.6 or higher (see badge) To install dependencies,
 I recently reorganized the whole package to submit to PyPI (Python Package Index). You should
 now be able to install the whole thing with
 
-	pip install pyOTDR
+	pip install pyotdr
 
-This should create an executable called **pyOTDR** that is ready to use.
+This should create an executable called **pyotdr** that is ready to use.
 
 ### Docker
 
@@ -101,7 +101,7 @@ all goes well, it should successfully build a new docker image *sidneyli/pyotdr:
 You can check with the command:
 
 	docker images
-    
+
 once the build is completed. You can now run the command
 
 	make docker-run
@@ -110,11 +110,11 @@ or type the docker command:
 
 	docker run -ti --rm -u $(id -u):$(id -g) -v $HOME:/data sidneyli/pyotdr:latest /bin/bash
 
-to spin up a container. This will start a command shell for you to run the *pyOTDR.py* program.  The docker command
+to spin up a container. This will start a command shell for you to run the *pyotdr.py* program.  The docker command
 above will mount your home directory to the */data* folder inside the docker instance.  The
-command pyOTDR.py (installed as */pyOTDR/pyOTDR.py*) will be in your execution path.
+command pyotdr.py (installed as */pyotdr/pyotdr.py*) will be in your execution path.
 The container removes itself when you exit the instance.
 
-(*Last Revised 2021-07-26*)
+(*Last Revised 2021-09-03*)
 
 

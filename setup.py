@@ -26,8 +26,8 @@ with open(path.join(here, "requirements.txt")) as f:
 # Fields marked as "Optional" may be commented out.
 
 setup(
-    name="pyOTDR",
-    version="2.0.0",
+    name="pyotdr",
+    version="2.1.0",
     description="A simple OTDR SOR file parser",
     long_description=long_description,
     long_description_content_type="text/markdown",

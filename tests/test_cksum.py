@@ -56,7 +56,6 @@ def test_cksum():
     # SOR version 2
     filename = cdir + "/../data/sample1310_lowDR.sor"
     status, results, tracedata = sorparse(filename)
-    # status, results, tracedata = pyOTDR.sorparse(filename, debug=True, logfile=sys.stderr)
 
     assert results["Cksum"]["checksum_ours"] == 62998
     assert results["Cksum"]["checksum"] == 59892

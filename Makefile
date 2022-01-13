@@ -2,8 +2,8 @@ clean:
 	rm -f Makefile.bak *-trace.dat *~ */*~ *-dump.json
 
 realclean: clean
-	rm -rf *.json *.xml pyOTDR/*.pyc *.pyc test/*.pyc */__pycache__ __pycache__ .cache tests/.cache
-	rm -rf build dist pyOTDR.egg-info
+	rm -rf *.json *.xml pyotdr/*.pyc *.pyc test/*.pyc */__pycache__ __pycache__ .cache tests/.cache
+	rm -rf build dist pyotdr.egg-info
 
 build: realclean
 	python setup.py build
@@ -37,7 +37,7 @@ html: doc
 	rst2html5.py README.rst > README.html
 
 test1:
-	./pyOTDR/main.py data/demo_ab.sor
+	./pyotdr/main.py data/demo_ab.sor
 
 test2:
-	./pyOTDR/main.py data/sample1310_lowDR.sor
+	./pyotdr/main.py data/sample1310_lowDR.sor

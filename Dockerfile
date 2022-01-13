@@ -7,4 +7,4 @@ COPY . .
 RUN pip install .
 
 
-CMD ["pyOTDR"]
+CMD ["pyotdr"]

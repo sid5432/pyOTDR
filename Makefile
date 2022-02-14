@@ -6,7 +6,7 @@ realclean: clean
 	rm -rf build dist pyotdr.egg-info
 
 build: realclean
-	python setup.py build
+	python -m build
 	
 dist: build
 	python setup.py sdist bdist_wheel
@@ -15,7 +15,7 @@ upload: dist
 	twine upload dist/*
 
 install: build
-	python setup.py install
+	python -m build
 
 docker-build:
 	docker build . -t sidneyli/pyotdr:latest

@@ -1,3 +1,5 @@
 pytest
 black
 mypy
+twine
+build

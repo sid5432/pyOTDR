@@ -41,8 +41,8 @@ def process(fh, results):
     status = process_supparam(fh, results)
 
     # read the rest of the block (just in case)
-    endpos = results["blocks"][bname]["pos"] + results["blocks"][bname]["size"]
-    fh.read(endpos - fh.tell())
+    #endpos = results["blocks"][bname]["pos"] + results["blocks"][bname]["size"]
+    #fh.read(endpos - fh.tell())
     status = "ok"
     return status
 

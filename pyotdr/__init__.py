@@ -1,3 +1,3 @@
 from .read import sorparse
 
-__version__ = "1.0.0"
+__version__ = "2.1.1"
